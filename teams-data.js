@@ -349,6 +349,54 @@ const teamHistories = {
             { name: "Boris Živković", period: "1997–2003", pos: "Abwehr", info: "Kroatischer Defensiv-Stabilisator." }
         ]
     },
+    192: {
+        history: "Gründung am 13. Februar 1948 durch Zusammenschluss von Kölner BC 01 und SpVgg Sülz 07. Der 1. FC Köln ist dreimaliger Deutscher Meister (1962, 1964, 1978), viermaliger DFB-Pokalsieger und prägte mit legendären Spielern wie Hans Schäfer und Wolfgang Overath den deutschen Fußball.",
+        trophies: [
+            { comp: "Deutscher Meister", count: "3 Mal", seasons: "1961/62, 1963/64, 1977/78" },
+            { comp: "Deutscher Vizemeister", count: "7 Mal", seasons: "1959/60, 1962/63, 1964/65, 1972/73, 1981/82, 1988/89, 1989/90" },
+            { comp: "DFB-Pokalsieger", count: "4 Mal", seasons: "1967/68, 1976/77, 1977/78, 1982/83" },
+            { comp: "DFB-Pokal-Finalist", count: "6 Mal", seasons: "1953/54, 1969/70, 1970/71, 1972/73, 1979/80, 1990/91" },
+            { comp: "UEFA-Pokal-Finalist", count: "1 Mal", seasons: "1985/86" },
+            { comp: "Meister der 2. Bundesliga", count: "5 Mal", seasons: "2000, 2005, 2014, 2019, 2025" }
+        ],
+        mostApps: [
+            { rank: 1, name: "Toni Schumacher", period: "1972–1987", count: "422", active: false },
+            { rank: 2, name: "Wolfgang Overath", period: "1963–1977", count: "409", active: false },
+            { rank: 3, name: "Pierre Littbarski", period: "1978–1986, 1987–1993", count: "406", active: false },
+            { rank: 4, name: "Hannes Löhr", period: "1964–1978", count: "381", active: false },
+            { rank: 5, name: "Heinz Simmet", period: "1971–1985", count: "357", active: false },
+            { rank: 6, name: "Wolfgang Weber", period: "1963–1978", count: "356", active: false },
+            { rank: 7, name: "Bernd Cullmann", period: "1970–1983", count: "341", active: false },
+            { rank: 8, name: "Harald Konopka", period: "1971–1984", count: "335", active: false },
+            { rank: 9, name: "Heinz Flohe", period: "1966–1979", count: "329", active: false },
+            { rank: 10, name: "Bodo Illgner", period: "1986–1996", count: "326", active: false }
+        ],
+        mostGoals: [
+            { rank: 1, name: "Hannes Löhr", period: "1964–1978", count: "166", active: false },
+            { rank: 2, name: "Dieter Müller", period: "1973–1981", count: "159", active: false },
+            { rank: 3, name: "Pierre Littbarski", period: "1978–1986, 1987–1993", count: "116", active: false },
+            { rank: 4, name: "Klaus Allofs", period: "1981–1987", count: "88", active: false },
+            { rank: 5, name: "Wolfgang Overath", period: "1963–1977", count: "84", active: false },
+            { rank: 6, name: "Toni Polster", period: "1993–1998", count: "79", active: false },
+            { rank: 7, name: "Heinz Flohe", period: "1966–1979", count: "77", active: false },
+            { rank: 8, name: "Anthony Modeste", period: "2015–2017, 2018–2022", count: "64", active: false },
+            { rank: 9, name: "Karl-Heinz Thielen", period: "1962–1973", count: "56", active: false },
+            { rank: 10, name: "Lukas Podolski", period: "2003–2006, 2009–2012", count: "55", active: false }
+        ],
+        legends: [
+            { name: "Hans Schäfer", period: "1948–1965", pos: "Sturm", info: "Weltmeister 1954, Kapitän und Meistermacher des 1. FC Köln (306 Tore gesamt)." },
+            { name: "Wolfgang Overath", period: "1963–1977", pos: "Mittelfeld", info: "Weltmeister 1974, genialer Spielmacher und absolutes Kölner Idol." },
+            { name: "Toni Schumacher", period: "1972–1987", pos: "Tor", info: "Legendärer Nationaltorwart und Rekordspieler des Effzeh in der Bundesliga." },
+            { name: "Pierre Littbarski", period: "1978–1993", pos: "Mittelfeld", info: "Dribbelkünstler, Weltmeister 1990 und Publikumsliebling." },
+            { name: "Hannes Löhr", period: "1964–1978", pos: "Sturm", info: "Ewiger Bundesliga-Rekordtorschütze des Vereins mit 166 Treffern." },
+            { name: "Heinz Flohe", period: "1966–1979", pos: "Mittelfeld", info: "Weltmeister 1974 und genialer Taktgeber im Mittelfeld." },
+            { name: "Wolfgang Weber", period: "1963–1978", pos: "Abwehr", info: "„Bulle“ Weber, unerbittlicher Abwehrchef und Vize-Weltmeister 1966." },
+            { name: "Dieter Müller", period: "1973–1981", pos: "Sturm", info: "Eiskalter Vollstrecker (erzielte u.a. 6 Tore in einem Bundesligaspiel)." },
+            { name: "Klaus Allofs", period: "1981–1987", pos: "Sturm", info: "Torgefährlicher Nationalstürmer und DFB-Pokalsieger." },
+            { name: "Bodo Illgner", period: "1986–1996", pos: "Tor", info: "Weltmeister-Torwart von 1990 und jahrelanger starker Rückhalt." },
+            { name: "Hennes Weisweiler", period: "1976–1980", pos: "Trainer", info: "Erfolgreicher Startrainer, holte das legendäre Double 1978." }
+        ]
+    },
     173: { history: "RB Leipzig", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     172: { history: "VfB Stuttgart", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     169: { history: "Eintracht Frankfurt", trophies: [], mostApps: [], mostGoals: [], legends: [] },
@@ -358,7 +406,6 @@ const teamHistories = {
     170: { history: "FC Augsburg", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     182: { history: "1. FC Union Berlin", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     164: { history: "1. FSV Mainz 05", trophies: [], mostApps: [], mostGoals: [], legends: [] },
-    192: { history: "1. FC Köln", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     175: { history: "Hamburger SV", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     185: { history: "SC Paderborn 07", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     1660: { history: "SV Elversberg", trophies: [], mostApps: [], mostGoals: [], legends: [] }
