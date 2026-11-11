@@ -298,11 +298,35 @@
         let currentTeamId = null;
         let globalOpponentsCache = [];
 
+        // Caching-Status für die Reiter (verhindert doppeltes Laden bei Klicks)
+        let loadedTabs = {
+            stats: false,
+            squad: false,
+            fixtures: false,
+            standings: false
+        };
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+            
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+
+            // LAZY LOADING: Daten erst beim Klick auf den Reiter nachladen
+            if (currentTeamId) {
+                if (tabId === 'tab-stats' && !loadedTabs.stats) {
+                    loadStatsTab();
+                } else if (tabId === 'tab-squad' && !loadedTabs.squad) {
+                    loadSquadTab();
+                } else if (tabId === 'tab-fixtures' && !loadedTabs.fixtures) {
+                    loadFixturesTab();
+                } else if (tabId === 'tab-standings' && !loadedTabs.standings) {
+                    loadStandingsTab();
+                }
+            }
         }
 
         function closeModal() {
@@ -312,6 +336,7 @@
         function resetToHome() {
             currentTeamId = null;
             globalOpponentsCache = [];
+            loadedTabs = { stats: false, squad: false, fixtures: false, standings: false };
             document.getElementById("clubSelector").value = "";
             document.documentElement.style.setProperty('--accent-color', '#DC052D');
             
@@ -343,38 +368,51 @@
             const clubColor = selectedOption.getAttribute("data-color") || "#DC052D";
             
             document.documentElement.style.setProperty('--accent-color', clubColor);
+            loadedTabs = { stats: false, squad: false, fixtures: false, standings: false };
             
-            const loadingMsg = `<div class="loading-state">Lade Vereinsstammdaten & Spieldaten...</div>`;
-            document.getElementById("profileContainer").innerHTML = loadingMsg;
-            document.getElementById("statsContainer").innerHTML = loadingMsg;
-            document.getElementById("squadContainer").innerHTML = loadingMsg;
-            document.getElementById("fixturesContainer").innerHTML = loadingMsg;
-            document.getElementById("standingsContainer").innerHTML = loadingMsg;
+            // Auf den ersten Reiter zurückspringen
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-profile').classList.add('active');
+            document.querySelector('.tab-btn').classList.add('active');
 
-            initAll();
+            document.getElementById("profileContainer").innerHTML = `<div class="loading-state">Lade Vereinsstammdaten & Gegner-Matrix...</div>`;
+            document.getElementById("statsContainer").innerHTML = `<div class="loading-state">Wird geladen, sobald der Reiter geöffnet wird...</div>`;
+            document.getElementById("squadContainer").innerHTML = `<div class="loading-state">Wird geladen, sobald der Reiter geöffnet wird...</div>`;
+            document.getElementById("fixturesContainer").innerHTML = `<div class="loading-state">Wird geladen, sobald der Reiter geöffnet wird...</div>`;
+            document.getElementById("standingsContainer").innerHTML = `<div class="loading-state">Wird geladen, sobald der Reiter geöffnet wird...</div>`;
+
+            initCoreData();
         }
 
-        async function initAll() {
+        // 1. NUR BASISDATEN LADEN (Stammdaten & Matrix)
+        async function initCoreData() {
             if (!currentTeamId) return;
             const banner = document.getElementById("apiStatusBanner");
-            banner.innerHTML = `<span>Lade Live-Daten für Team-ID ${currentTeamId} (Saison ${seasonCurrent} & ${seasonLast})...</span>`;
+            
+            const cacheKey = `fsv_hub_core_${currentTeamId}_${seasonCurrent}`;
+            const cachedCore = localStorage.getItem(cacheKey);
+
+            if (cachedCore) {
+                const parsed = JSON.parse(cachedCore);
+                globalOpponentsCache = parsed.opponents;
+                renderProfileWithHistoryAndMatrix(parsed.teamData);
+                banner.innerHTML = `<span>⚡ Stammdaten aus Cache geladen (0 API-Requests)</span>`;
+                return;
+            }
+
+            banner.innerHTML = `<span>Lade Basisdaten für Team-ID ${currentTeamId}...</span>`;
 
             try {
-                const [teamRes, fixtures26Res, fixtures25Res, statsRes, playersRes, standingsRes] = await Promise.all([
+                const [teamRes, fixtures26Res, fixtures25Res] = await Promise.all([
                     fetch(`https://v3.football.api-sports.io/teams?id=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
                     fetch(`https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${seasonCurrent}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
-                    fetch(`https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${seasonLast}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
-                    fetch(`https://v3.football.api-sports.io/teams/statistics?league=${leagueId}&season=${seasonCurrent}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
-                    fetch(`https://v3.football.api-sports.io/players?league=${leagueId}&season=${seasonCurrent}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
-                    fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=${seasonCurrent}`, { headers: { "x-apisports-key": apiKey } })
+                    fetch(`https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${seasonLast}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } })
                 ]);
 
                 const teamData = await teamRes.json();
                 const fixtures26Data = await fixtures26Res.json();
                 const fixtures25Data = await fixtures25Res.json();
-                const statsData = await statsRes.json();
-                const playersData = await playersRes.json();
-                const standingsData = await standingsRes.json();
 
                 if (teamData.response && teamData.response.length > 0) {
                     const tInfo = teamData.response[0].team;
@@ -384,17 +422,81 @@
                 }
 
                 globalOpponentsCache = buildOpponentsArray(fixtures26Data, fixtures25Data);
-
                 renderProfileWithHistoryAndMatrix(teamData);
-                renderStats(statsData);
-                renderPlayerStats(playersData);
-                renderFixtures(fixtures26Data);
-                renderStandings(standingsData);
 
-                banner.innerHTML = `<span>🟢 Alle Endpunkte erfolgreich geladen</span><span>Saison: <b>${seasonCurrent} & ${seasonLast}</b></span>`;
+                localStorage.setItem(cacheKey, JSON.stringify({ teamData, opponents: globalOpponentsCache }));
+                banner.innerHTML = `<span>🟢 Basisdaten erfolgreich geladen (Restliche Reiter laden per Lazy Loading beim Klick)</span>`;
             } catch (e) {
-                banner.innerHTML = `<span style="color:var(--accent-color);">❌ Fehler beim Abrufen der API-Daten: ${e.message}</span>`;
+                banner.innerHTML = `<span style="color:var(--accent-color);">❌ Fehler: ${e.message}</span>`;
             }
+        }
+
+        // 2. REITER: STATISTIKEN LAZY LADEN
+        async function loadStatsTab() {
+            const cacheKey = `fsv_hub_stats_${currentTeamId}_${seasonCurrent}`;
+            if (localStorage.getItem(cacheKey)) {
+                renderStats(JSON.parse(localStorage.getItem(cacheKey)));
+                loadedTabs.stats = true;
+                return;
+            }
+            try {
+                const res = await fetch(`https://v3.football.api-sports.io/teams/statistics?league=${leagueId}&season=${seasonCurrent}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } });
+                const data = await res.json();
+                localStorage.setItem(cacheKey, JSON.stringify(data));
+                renderStats(data);
+                loadedTabs.stats = true;
+            } catch (e) { document.getElementById("statsContainer").innerHTML = `<div class="loading-state">Fehler beim Laden.</div>`; }
+        }
+
+        // 3. REITER: KADER LAZY LADEN
+        async function loadSquadTab() {
+            const cacheKey = `fsv_hub_squad_${currentTeamId}_${seasonCurrent}`;
+            if (localStorage.getItem(cacheKey)) {
+                renderPlayerStats(JSON.parse(localStorage.getItem(cacheKey)));
+                loadedTabs.squad = true;
+                return;
+            }
+            try {
+                const res = await fetch(`https://v3.football.api-sports.io/players?league=${leagueId}&season=${seasonCurrent}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } });
+                const data = await res.json();
+                localStorage.setItem(cacheKey, JSON.stringify(data));
+                renderPlayerStats(data);
+                loadedTabs.squad = true;
+            } catch (e) { document.getElementById("squadContainer").innerHTML = `<div class="loading-state">Fehler beim Laden.</div>`; }
+        }
+
+        // 4. REITER: SPIELPLAN LAZY LADEN
+        async function loadFixturesTab() {
+            const cacheKey = `fsv_hub_fixtures_${currentTeamId}_${seasonCurrent}`;
+            if (localStorage.getItem(cacheKey)) {
+                renderFixtures(JSON.parse(localStorage.getItem(cacheKey)));
+                loadedTabs.fixtures = true;
+                return;
+            }
+            try {
+                const res = await fetch(`https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${seasonCurrent}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } });
+                const data = await res.json();
+                localStorage.setItem(cacheKey, JSON.stringify(data));
+                renderFixtures(data);
+                loadedTabs.fixtures = true;
+            } catch (e) { document.getElementById("fixturesContainer").innerHTML = `<div class="loading-state">Fehler beim Laden.</div>`; }
+        }
+
+        // 5. REITER: TABELLE LAZY LADEN
+        async function loadStandingsTab() {
+            const cacheKey = `fsv_hub_standings_${seasonCurrent}`;
+            if (localStorage.getItem(cacheKey)) {
+                renderStandings(JSON.parse(localStorage.getItem(cacheKey)));
+                loadedTabs.standings = true;
+                return;
+            }
+            try {
+                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=${seasonCurrent}`, { headers: { "x-apisports-key": apiKey } });
+                const data = await res.json();
+                localStorage.setItem(cacheKey, JSON.stringify(data));
+                renderStandings(data);
+                loadedTabs.standings = true;
+            } catch (e) { document.getElementById("standingsContainer").innerHTML = `<div class="loading-state">Fehler beim Laden.</div>`; }
         }
 
         function formatMatchResultBadge(match, teamId) {
@@ -520,7 +622,6 @@
             
             const histData = (typeof teamHistories !== 'undefined' && teamHistories[currentTeamId]) ? teamHistories[currentTeamId] : { history: "Traditionsreicher deutscher Fußballverein.", trophies: [], mostApps: [], mostGoals: [], legends: [] };
 
-            // Berechne Gesamtkennzahlen für die Kennzahlen-Leiste
             let totalPts26 = 0;
             let totalPts25 = 0;
             let totalWins = 0;
@@ -545,7 +646,6 @@
 
             let profileHtml = "";
 
-            // 1. VEREINSHISTORIE GANZ OBEN
             profileHtml += `
                 <div class="card" style="margin-bottom: 25px;">
                     <h2>📜 Vereinshistorie</h2>
@@ -553,7 +653,6 @@
                 </div>
             `;
 
-            // 2. STAMMDATEN & STADION
             profileHtml += `
                 <div class="stats-grid">
                     <div class="card">
@@ -575,7 +674,6 @@
                 </div>
             `;
 
-            // 3. GEGNER-DIREKTVERGLEICH MIT KENNZAHLEN-LEISTE & SUCHFILTER
             profileHtml += `
                 <div class="card" style="margin-top: 25px;">
                     <h2>⚔️ Gegner-Direktvergleich & Punkte: Saison 2026 vs. Saison 2025</h2>
@@ -583,7 +681,6 @@
                         Direkte Ergebnisse und geholte Punkte gegen alle Ligagegner im Jahresvergleich ((H) = Heim, (A) = Auswärts).
                     </p>
 
-                    <!-- NEUE KENNZAHLEN-LEISTE -->
                     <div class="matrix-summary-bar">
                         <div class="matrix-summary-metric">
                             <div class="lbl">Punkte Gesamt (2026)</div>
@@ -655,7 +752,6 @@
             }
             profileHtml += `</tbody></table></div></div>`;
 
-            // 4. TROPHÄEN & ERFOLGE
             profileHtml += `
                 <div class="table-card" style="margin-top: 25px;">
                     <div style="padding: 18px 20px; border-bottom: 1px solid var(--border-color); background: #101828;">
@@ -678,7 +774,6 @@
             }
             profileHtml += `</div>`;
 
-            // 5. SPIELER-REKORDE & LEGENDEN
             if (histData.mostApps && histData.mostApps.length > 0) {
                 profileHtml += `
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 25px; margin-top: 25px;">
