@@ -68,7 +68,7 @@ const teamHistories = {
     165: {
         history: "Gegründet am 19. Dezember 1909. Borussia Dortmund (BVB) gehört zu den populärsten und erfolgreichsten Traditionsvereinen Deutschlands. Berühmt für die legendäre 'Gelbe Wand' im Signal Iduna Park, den sensationellen Champions-League-Triumph 1997 sowie die Meisterschaften unter Jürgen Klopp.",
         trophies: [
-            { comp: "Deutscher Meister", count: "8 Mal", seasons: "1956, 1957, 1963, 1995, 1996, 2002, 2011, 2012" },
+            { comp: "Deutscher Meister", count: "6 Mal", seasons: "1956, 1957, 1963, 1995, 1996, 2002, 2011, 2012" },
             { comp: "DFB-Pokalsieger", count: "5 Mal", seasons: "1965, 1989, 2012, 2017, 2021" },
             { comp: "UEFA Champions League / Landesmeister", count: "1 Mal", seasons: "1997 (3:1 gegen Juventus Turin)" },
             { comp: "Europapokal der Pokalsieger", count: "1 Mal", seasons: "1966 (erster deutscher Europapokalsieger)" },
@@ -213,9 +213,9 @@ const teamHistories = {
     174: {
         history: "Der als Kumpel- und Malocher-Club bekannte Fußballverein aus dem Ruhrgebiet wurde siebenmal Meister und holte fünfmal den DFB-Pokal. 1997 erreichte der FC Schalke 04 mit dem Gewinn des UEFA-Cups den bisher größten Erfolg seiner Geschichte. Nach dem Erreichen der Zweitligameisterschaft in der Vorsaison bestreitet der Verein seine Spiele seit Beginn der Spielzeit 2026/27 wieder in der ersten Bundesliga. In der ewigen Tabelle der Bundesliga belegt Schalke Platz 9.",
         trophies: [
-            { comp: "Deutscher Meister", count: "7 Mal", seasons: "1934, 1935, 1937, 1939, 1940, 1942, 1958" },
+            { comp: "Deutscher Meister", count: "0 Mal", seasons: "1934, 1935, 1937, 1939, 1940, 1942, 1958" },
             { comp: "Deutscher Vizemeister", count: "7 Mal", seasons: "1933, 1938, 1941, 1972, 1977, 2001, 2005, 2007, 2010, 2018" },
-            { comp: "DFB-Pokalsieger / Tschammerpokal", count: "5 Mal", seasons: "1937, 1972, 2001, 2002, 2011" },
+            { comp: "DFB-Pokalsieger / Tschammerpokal", count: "4 Mal", seasons: "1937, 1972, 2001, 2002, 2011" },
             { comp: "UEFA-Cup-Sieger", count: "1 Mal", seasons: "1997 (gegen Inter Mailand)" },
             { comp: "DFL-Ligapokalsieger", count: "1 Mal", seasons: "2005" },
             { comp: "DFL-Supercupsieger", count: "1 Mal", seasons: "2011" },
@@ -352,10 +352,10 @@ const teamHistories = {
     192: {
         history: "Gründung am 13. Februar 1948 durch Zusammenschluss von Kölner BC 01 und SpVgg Sülz 07. Der 1. FC Köln ist dreimaliger Deutscher Meister (1962, 1964, 1978), viermaliger DFB-Pokalsieger und prägte mit legendären Spielern wie Hans Schäfer und Wolfgang Overath den deutschen Fußball.",
         trophies: [
-            { comp: "Deutscher Meister", count: "3 Mal", seasons: "1961/62, 1963/64, 1977/78" },
-            { comp: "Deutscher Vizemeister", count: "7 Mal", seasons: "1959/60, 1962/63, 1964/65, 1972/73, 1981/82, 1988/89, 1989/90" },
+            { comp: "Deutscher Meister", count: "2 Mal", seasons: "1961/62, 1963/64, 1977/78" },
+            { comp: "Deutscher Vizemeister", count: "5 Mal", seasons: "1959/60, 1962/63, 1964/65, 1972/73, 1981/82, 1988/89, 1989/90" },
             { comp: "DFB-Pokalsieger", count: "4 Mal", seasons: "1967/68, 1976/77, 1977/78, 1982/83" },
-            { comp: "DFB-Pokal-Finalist", count: "6 Mal", seasons: "1953/54, 1969/70, 1970/71, 1972/73, 1979/80, 1990/91" },
+            { comp: "DFB-Pokal-Finalist", count: "5 Mal", seasons: "1953/54, 1969/70, 1970/71, 1972/73, 1979/80, 1990/91" },
             { comp: "UEFA-Pokal-Finalist", count: "1 Mal", seasons: "1985/86" },
             { comp: "Meister der 2. Bundesliga", count: "5 Mal", seasons: "2000, 2005, 2014, 2019, 2025" }
         ],
