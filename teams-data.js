@@ -397,6 +397,52 @@ const teamHistories = {
             { name: "Hennes Weisweiler", period: "1976–1980", pos: "Trainer", info: "Erfolgreicher Startrainer, holte das legendäre Double 1978." }
         ]
     },
+    175: {
+        history: "Gegründet 1919. Der Hamburger SV war von der Gründung der Bundesliga 1963 bis zu seinem erstmaligen Abstieg 2018 durchgehend knapp 55 Jahre lang ununterbrochen in der höchsten deutschen Spielklasse vertreten, was ihm den Titel „Bundesliga-Dino“ einbrachte. Der HSV gehört mit sechs deutschen Meisterschaften, drei DFB-Pokalsiegen sowie den internationalen Triumphen im Europapokal der Pokalsieger (1977) und im Europapokal der Landesmeister (1983) zu den erfolgreichsten Klubs Deutschlands.",
+        trophies: [
+            { comp: "Deutscher Meister", count: "3 Mal", seasons: "1923, 1928, 1960, 1979, 1982, 1983" },
+            { comp: "DFB-Pokalsieger", count: "3 Mal", seasons: "1963, 1976, 1987" },
+            { comp: "Europapokalsieger der Landesmeister", count: "1 Mal", seasons: "1983" },
+            { comp: "Europapokalsieger der Pokalsieger", count: "1 Mal", seasons: "1977" },
+            { comp: "DFL-Ligapokalsieger", count: "2 Mal", seasons: "1973, 2003" }
+        ],
+        mostApps: [
+            { rank: 1, name: "Manfred Kaltz", period: "1971–1989, 1990–1991", count: "581", active: false },
+            { rank: 2, name: "Ditmar Jakobs", period: "1979–1989", count: "323", active: false },
+            { rank: 3, name: "Harald Spörl", period: "1987–2001", count: "321", active: false },
+            { rank: 4, name: "Peter Nogly", period: "1969–1980", count: "320", active: false },
+            { rank: 5, name: "Felix Magath", period: "1976–1986", count: "306", active: false },
+            { rank: 6, name: "Caspar Memering", period: "1971–1982", count: "303", active: false },
+            { rank: 7, name: "Richard Golz", period: "1987–1998", count: "273", active: false },
+            { rank: 8, name: "Klaus Zaczyk", period: "1969–1978", count: "262", active: false },
+            { rank: 9, name: "David Jarolím", period: "2003–2012", count: "257", active: false },
+            { rank: 10, name: "Thomas von Heesen", period: "1980–1994", count: "235", active: false }
+        ],
+        mostGoals: [
+            { rank: 1, name: "Uwe Seeler", period: "1953–1972", count: "137", active: false },
+            { rank: 2, name: "Thomas von Heesen", period: "1980–1994", count: "99", active: false },
+            { rank: 3, name: "Horst Hrubesch", period: "1978–1983", count: "96", active: false },
+            { rank: 4, name: "Manfred Kaltz", period: "1971–1989, 1990–1991", count: "76", active: false },
+            { rank: 5, name: "Sergej Barbarez", period: "2000–2006", count: "65", active: false },
+            { rank: 6, name: "Franz-Josef Hönig", period: "1967–1973", count: "62", active: false },
+            { rank: 7, name: "Georg Volkert", period: "1971–1978", count: "62", active: false },
+            { rank: 8, name: "Harald Spörl", period: "1987–2001", count: "60", active: false },
+            { rank: 9, name: "Charly Dörfel", period: "1958–1972", count: "58", active: false },
+            { rank: 10, name: "Jimmy Hartwig", period: "1978–1984", count: "52", id: 10 }
+        ],
+        legends: [
+            { name: "Uwe Seeler", period: "1953–1972", pos: "Sturm", info: "Die absolute HSV-Legende und Ehrenspielführer, erzielte 137 Bundesliga-Tore (und 587 Pflichtspieltreffer gesamt)." },
+            { name: "Manfred Kaltz", period: "1971–1989, 1990–1991", pos: "Abwehr", info: "Erfinder der „Bananenflanke“, Rekordspieler des HSV mit 581 Bundesligaeinsätzen." },
+            { name: "Horst Hrubesch", period: "1978–1983", pos: "Sturm", info: "Das „Kopfballungeheuer“, schoss den HSV zum Europapokalsieg und zu Meisterschaften." },
+            { name: "Felix Magath", period: "1976–1986", pos: "Mittelfeld", info: "Erzielte 1983 das historische Siegtor im Europapokalfinale der Landesmeister gegen Juventus Turin." },
+            { name: "Kevin Keegan", period: "1977–1980", pos: "Sturm", info: "Weltstar und zweimaliger Europas Fußballer des Jahres während seiner Zeit in Hamburg." },
+            { name: "Franz Beckenbauer", period: "1980–1982", pos: "Libero", info: "Der „Kaiser“ ließ seine Karriere beim HSV ausklingen und wurde 1982 noch einmal Deutscher Meister." },
+            { name: "Uli Stein", period: "1980–1987, 1994–1995", pos: "Tor", info: "Weltklasse-Torhüter und Rückhalt der goldenen HSV-Ära der 1980er Jahre." },
+            { name: "Sergej Barbarez", period: "2000–2006", pos: "Sturm / Mittelfeld", info: "Kultfigur und Torschützenkönig der Bundesliga-Saison 2000/01." },
+            { name: "Rafael van der Vaart", period: "2005–2008, 2012–2015", pos: "Mittelfeld", info: "Technischer Spielgestalter und Publikumsliebling." },
+            { name: "Thomas Doll", period: "1986–1991, 1998–2001", pos: "Mittelfeld", info: "Technisch brillanter Offensivspieler und späterer Cheftrainer." }
+        ]
+    },
     173: { history: "RB Leipzig", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     172: { history: "VfB Stuttgart", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     169: { history: "Eintracht Frankfurt", trophies: [], mostApps: [], mostGoals: [], legends: [] },
@@ -406,7 +452,6 @@ const teamHistories = {
     170: { history: "FC Augsburg", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     182: { history: "1. FC Union Berlin", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     164: { history: "1. FSV Mainz 05", trophies: [], mostApps: [], mostGoals: [], legends: [] },
-    175: { history: "Hamburger SV", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     185: { history: "SC Paderborn 07", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     1660: { history: "SV Elversberg", trophies: [], mostApps: [], mostGoals: [], legends: [] }
 };
