@@ -1024,5 +1024,49 @@ const teamHistories = {
             { period: "2022–", name: "Aktueller Trainerstab" }
         ]
     },
-    1660: { history: "SV Elversberg", trophies: [], mostApps: [], mostGoals: [], legends: [] }
+    1660: {
+        history: "Die Sportvereinigung 07 Elversberg e. V., kurz SV 07 Elversberg, SV Elversberg oder SVE, ist ein 1907 gegründeter Fußballverein aus Spiesen-Elversberg im Saarland. Die Vereinsfarben sind Schwarz und Weiß. Nach dem rasanten Aufstieg als Meister aus der 3. Liga in die 2. Bundesliga (2023) gelang der „Elv“ in der Saison 2025/26 mit Platz 2 der historische Aufstieg in die Bundesliga. Mit gut 13.000 Einwohnern gilt Elversberg als kleinster Bundesliga-Standort („Dorfverein“).",
+        trophies: [
+            { comp: "Bundesliga-Aufstieg", count: "1x", seasons: "2026 (2. Platz)" },
+            { comp: "2. Bundesliga-Aufstieg", count: "1x Meister", seasons: "2023" },
+            { comp: "3. Liga-Aufstiege", count: "2x", seasons: "2013, 2022" },
+            { comp: "Regionalliga Südwest", count: "2x Meister", seasons: "2017, 2022" },
+            { comp: "Oberliga Südwest", count: "2x Meister", seasons: "1996, 1998" },
+            { comp: "Saarlandpokal-Sieger", count: "8x", seasons: "2009, 2010, 2015, 2018, 2020, 2021, 2022, 2023" }
+        ],
+        mostApps: [
+            { rank: 1, name: "Leistungsträger", period: "Historisch", count: "Kader", active: false }
+        ],
+        mostGoals: [
+            { rank: 1, name: "Torjäger", period: "Historisch", count: "Kader", active: false }
+        ],
+        legends: [
+            { name: "Horst Steffen", period: "2018–2025", pos: "Cheftrainer", info: "Führte die SVE von der Regionalliga über die 3. Liga sensationell in die 2. Bundesliga und prägte die erfolgreichste Ära der Vereinsgeschichte." },
+            { name: "Vincent Wagner", period: "ab 2025", pos: "Cheftrainer", info: "Übernahm das Traineramt zur historischen Bundesligasaison." }
+        ],
+        trainers: [
+            { period: "bis September 1996", name: "Joachim Brehmer" },
+            { period: "September 1996 – November 1996", name: "Günter Herrmann" },
+            { period: "November 1996 – September 2000", name: "Neale Marmon" },
+            { period: "September 2000 – Saisonende 2000/01", name: "Frank Holzer" },
+            { period: "Juli 2001 – September 2002", name: "Klaus Scheer" },
+            { period: "September 2002", name: "Frank Holzer" },
+            { period: "September 2002 – April 2003", name: "Bernd Eichmann" },
+            { period: "April 2003 – April 2004", name: "Gerd Schwickert" },
+            { period: "April 2004 – 10. März 2008", name: "Brent Goulet" },
+            { period: "11. März 2008 – 6. Oktober 2009", name: "Đurađ Vasić" },
+            { period: "7. Oktober 2009 – 26. September 2011", name: "Günter Erhardt" },
+            { period: "26. September 2011 – 22. August 2013", name: "Jens Kiefer" },
+            { period: "2. September 2013 – 14. April 2014", name: "Dietmar Hirsch" },
+            { period: "14. April 2014 – 31. Mai 2014", name: "Roland Seitz" },
+            { period: "Juni 2014 – 7. Mai 2015", name: "Willi Kronhardt" },
+            { period: "7. Mai 2015 – 1. Juni 2015", name: "Stefan Minkwitz" },
+            { period: "Juli 2015 – 30. Juni 2017", name: "Michael Wiesinger" },
+            { period: "Juli 2017 – 11. März 2018", name: "Karsten Neitzel" },
+            { period: "11. März 2018 – 31. Oktober 2018", name: "Roland Seitz" },
+            { period: "November 2018 – 29. Mai 2025", name: "Horst Steffen" },
+            { period: "ab 1. Juli 2025", name: "Vincent Wagner" }
+        ]
+    },
+
 };
