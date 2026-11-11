@@ -60,6 +60,13 @@
         .club-select-dropdown { background: #070b12; color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; font-size: 0.95rem; font-weight: bold; cursor: pointer; outline: none; min-width: 320px; transition: border-color 0.2s; }
         .club-select-dropdown:focus { border-color: var(--accent-color); }
 
+        /* Summary Metrics Bar for Matrix */
+        .matrix-summary-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 18px; }
+        .matrix-summary-metric { background: #070b12; border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; text-align: center; }
+        .matrix-summary-metric .val { font-size: 1.25rem; font-weight: 800; color: var(--accent-color); margin-top: 4px; }
+        .matrix-summary-metric .val.gold { color: var(--gold-color); }
+        .matrix-summary-metric .lbl { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
         /* Search Filter Input */
         .search-filter-box { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; background: #070b12; border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 10px; }
         .search-filter-input { background: transparent; border: none; color: var(--text-main); font-size: 0.92rem; outline: none; width: 100%; }
@@ -146,7 +153,7 @@
         <!-- Header -->
         <header>
             <div class="main-title">Bundesliga & Team-Statistik <span>Hub</span></div>
-            <div class="subtitle">Zentrales Live-Dashboard mit Vereinshistorie & Gegner-Suchfilter</div>
+            <div class="subtitle">Zentrales Live-Dashboard mit Vereinshistorie & Kennzahlen-Leiste</div>
             <div class="author-sub">
                 <img src="https://lhusylpjnujlqomougmg.supabase.co/storage/v1/object/public/Bilder/Juergen%20Schuetzendorf.png" alt="Jürgen Schützendorf" class="author-avatar">
                 <span class="author-text">Webmanagement Jürgen Schützendorf</span>
@@ -158,7 +165,7 @@
             <div class="info-content">
                 <h2>ℹ️ Über diese App</h2>
                 <p>
-                    Wähle deinen Verein aus. Die Vereinshistorie und der gefilterte Gegner-Direktvergleich stehen dir nun direkt oben auf der Hauptseite zur Verfügung.
+                    Wähle deinen Verein aus. Die Vereinshistorie sowie der erweiterte Gegnervergleich mit Gesamtpunktekennzahlen stehen dir direkt auf der Hauptseite zur Verfügung.
                 </p>
             </div>
             <div>
@@ -218,7 +225,7 @@
             <span>Bereit. Bitte wähle einen Verein aus.</span>
         </div>
 
-        <!-- TAB 1: HAUPTSEITE (Historie oben, danach Stammdaten & gefilterte Gegner-Matrix) -->
+        <!-- TAB 1: HAUPTSEITE -->
         <div id="tab-profile" class="tab-content active">
             <div id="profileContainer" class="loading-state">Bitte wähle oben einen Verein aus, um das Dashboard zu laden.</div>
         </div>
@@ -289,7 +296,7 @@
         const leagueId = 78; // 1. Bundesliga
         
         let currentTeamId = null;
-        let globalOpponentsCache = []; // Für den Live-Suchfilter
+        let globalOpponentsCache = [];
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -376,7 +383,6 @@
                     document.getElementById("headerTeamSub").innerText = `1. Bundesliga • Team-ID ${currentTeamId}`;
                 }
 
-                // Gegner aufbereiten & cachen
                 globalOpponentsCache = buildOpponentsArray(fixtures26Data, fixtures25Data);
 
                 renderProfileWithHistoryAndMatrix(teamData);
@@ -488,7 +494,7 @@
                         <td>
                             <div style="display:flex; align-items:center; gap:8px;">
                                 <img src="${item.logo}" style="width:22px; height:22px; object-fit:contain;" alt="">
-                                <span><b>${item.name}</b></span>
+                               <span><b>${item.name}</b></span>
                             </div>
                         </td>
                         <td class="center">${formatMatchResultBadge(item.s26_1, currentTeamId)}</td>
@@ -513,6 +519,29 @@
             const clubAge = t.founded ? (currentYear - t.founded) : '-';
             
             const histData = (typeof teamHistories !== 'undefined' && teamHistories[currentTeamId]) ? teamHistories[currentTeamId] : { history: "Traditionsreicher deutscher Fußballverein.", trophies: [], mostApps: [], mostGoals: [], legends: [] };
+
+            // Berechne Gesamtkennzahlen für die Kennzahlen-Leiste
+            let totalPts26 = 0;
+            let totalPts25 = 0;
+            let totalWins = 0;
+            let totalDraws = 0;
+            let totalLosses = 0;
+
+            globalOpponentsCache.forEach(item => {
+                totalPts26 += calculatePoints(item.s26_1, item.s26_2, currentTeamId);
+                totalPts25 += calculatePoints(item.s25_1, item.s25_2, currentTeamId);
+                
+                [item.s26_1, item.s26_2, item.s25_1, item.s25_2].forEach(m => {
+                    if (m && m.goals.home !== null && m.goals.away !== null) {
+                        let isHome = m.teams.home.id === currentTeamId;
+                        let tG = isHome ? m.goals.home : m.goals.away;
+                        let oG = isHome ? m.goals.away : m.goals.home;
+                        if (tG > oG) totalWins++;
+                        else if (tG === oG) totalDraws++;
+                        else totalLosses++;
+                    }
+                });
+            });
 
             let profileHtml = "";
 
@@ -546,13 +575,37 @@
                 </div>
             `;
 
-            // 3. GEGNER-DIREKTVERGLEICH MIT SUCHFILTER
+            // 3. GEGNER-DIREKTVERGLEICH MIT KENNZAHLEN-LEISTE & SUCHFILTER
             profileHtml += `
                 <div class="card" style="margin-top: 25px;">
                     <h2>⚔️ Gegner-Direktvergleich & Punkte: Saison 2026 vs. Saison 2025</h2>
                     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">
                         Direkte Ergebnisse und geholte Punkte gegen alle Ligagegner im Jahresvergleich ((H) = Heim, (A) = Auswärts).
                     </p>
+
+                    <!-- NEUE KENNZAHLEN-LEISTE -->
+                    <div class="matrix-summary-bar">
+                        <div class="matrix-summary-metric">
+                            <div class="lbl">Punkte Gesamt (2026)</div>
+                            <div class="val gold">${totalPts26} Pkt.</div>
+                        </div>
+                        <div class="matrix-summary-metric">
+                            <div class="lbl">Punkte Gesamt (2025)</div>
+                            <div class="val gold">${totalPts25} Pkt.</div>
+                        </div>
+                        <div class="matrix-summary-metric">
+                            <div class="lbl">Gesamtbilanz (S / U / N)</div>
+                            <div class="val" style="color:var(--text-main); font-size:1.1rem; margin-top:6px;">
+                                <span style="color:var(--success-green);">${totalWins}</span> / 
+                                <span style="color:var(--gold-color);">${totalDraws}</span> / 
+                                <span style="color:var(--accent-color);">${totalLosses}</span>
+                            </div>
+                        </div>
+                        <div class="matrix-summary-metric">
+                            <div class="lbl">Gegner in Wertung</div>
+                            <div class="val">${globalOpponentsCache.length}</div>
+                        </div>
+                    </div>
                     
                     <div class="search-filter-box">
                         <span>🔍</span>
