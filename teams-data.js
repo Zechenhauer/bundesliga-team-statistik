@@ -443,11 +443,54 @@ const teamHistories = {
             { name: "Thomas Doll", period: "1986–1991, 1998–2001", pos: "Mittelfeld", info: "Technisch brillanter Offensivspieler und späterer Cheftrainer." }
         ]
     },
+    162: {
+        history: "Gründung am 4. Februar 1899. Der SV Werder Bremen ist mit rund 68.000 Mitgliedern der größte Sportverein aus der Freien Hansestadt Bremen und der dreizehntgrößte Deutschlands. Als Gründungsmitglied der Bundesliga hält Werder gemeinsam mit dem FC Bayern München den Rekord der meisten Spielzeiten in der höchsten deutschen Spielklasse. Zu den größten Erfolgen zählen 4 Deutsche Meisterschaften (1965, 1988, 1993, 2004), 6 DFB-Pokalsiege sowie der Gewinn des Europapokals der Pokalsieger 1992.",
+        trophies: [
+            { comp: "Deutscher Meister", count: "4 Mal", seasons: "1965, 1988, 1993, 2004" },
+            { comp: "Deutscher Vizemeister", count: "7 Mal", seasons: "1968, 1983, 1985, 1986, 1995, 2006, 2008" },
+            { comp: "DFB-Pokalsieger", count: "6 Mal", seasons: "1961, 1991, 1994, 1999, 2004, 2009" },
+            { comp: "Deutscher Supercup-Sieger", count: "3 Mal", seasons: "1988, 1993, 1994" },
+            { comp: "Europapokalsieger der Pokalsieger", count: "1 Mal", seasons: "1992" },
+            { comp: "Deutscher Ligapokalsieger", count: "1 Mal", seasons: "2006" }
+        ],
+        mostApps: [
+            { rank: 1, name: "Dieter Burdenski", period: "1972–1988", count: "444", active: false },
+            { rank: 2, name: "Horst-Dieter Höttges", period: "1964–1978", count: "420", active: false },
+            { rank: 3, name: "Dieter Eilts", period: "1985–2002", count: "390", active: false },
+            { rank: 4, name: "Marco Bode", period: "1989–2002", count: "379", active: false },
+            { rank: 5, name: "Werner Görts", period: "1970–1980", count: "363", active: false },
+            { rank: 6, name: "Karl-Heinz Kamp", period: "1970–1984", count: "361", active: false },
+            { rank: 7, name: "Miroslav Votava", period: "1985–1996", count: "357", active: false },
+            { rank: 8, name: "Oliver Reck", period: "1985–1998", count: "345", active: false },
+            { rank: 9, name: "Torsten Frings", period: "1997–2002, 2004–2011", count: "326", active: false },
+            { rank: 10, name: "Frank Neubarth", period: "1982–1996", count: "317", active: false }
+        ],
+        mostGoals: [
+            { rank: 1, name: "Claudio Pizarro", period: "1999–2001, 2008–2009, 2009–2017, 2018–2020", count: "109", active: false },
+            { rank: 2, name: "Marco Bode", period: "1989–2002", count: "101", active: false },
+            { rank: 3, name: "Rudi Völler", period: "1982–1987", count: "97", active: false },
+            { rank: 3, name: "Frank Neubarth", period: "1982–1996", count: "97", active: false },
+            { rank: 5, name: "Aílton", period: "1998–2004", count: "88", active: false },
+            { rank: 6, name: "Werner Görts", period: "1970–1980", count: "73", active: false },
+            { rank: 7, name: "Arnold Schütz", period: "1955–1972", count: "69", active: false },
+            { rank: 8, name: "Uwe Reinders", period: "1974–1985", count: "67", active: false },
+            { rank: 9, name: "Norbert Meier", period: "1980–1989", count: "66", active: false },
+            { rank: 10, name: "Wynton Rufer", period: "1989–1995", count: "59", active: false }
+        ],
+        legends: [
+            { name: "Otto Rehhagel", period: "1981–1995", pos: "Trainer", info: "Der „König Otto“ prägte die erfolgreichste Ära des SV Werder mit zwei Meisterschaften und dem Europapokalsieg." },
+            { name: "Thomas Schaaf", period: "1999–2013", pos: "Trainer", info: "Holte 2004 das historische Double aus Meisterschaft und DFB-Pokal." },
+            { name: "Claudio Pizarro", period: "1999–", pos: "Sturm", info: "Kultstürmer, Fanliebling und mit 109 Toren Rekordschütze der Bremer Bundesliga-Historie." },
+            { name: "Rudi Völler", period: "1982–1987", pos: "Sturm", info: "„Tante Käthe“, treffsicherer Nationalstürmer und Torschützenkönig." },
+            { name: "Aílton", period: "1998–2004", pos: "Sturm", info: "Der brasilianische Publikumsliebling und Torschützenkönig beim Meistertitel 2004." },
+            { name: "Miroslav Klose", period: "2004–2007", pos: "Sturm", info: "Weltklasse-Stürmer, WM-Rekordtorschütze und Bundesliga-Torschützenkönig 2006." },
+            { name: "Dieter Burdenski", period: "1972–1988", pos: "Tor", info: "Rekordspieler des SV Werder Bremen mit 444 Bundesligaeinsätzen." }
+        ]
+    },
     173: { history: "RB Leipzig", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     172: { history: "VfB Stuttgart", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     169: { history: "Eintracht Frankfurt", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     160: { history: "SC Freiburg", trophies: [], mostApps: [], mostGoals: [], legends: [] },
-    162: { history: "SV Werder Bremen", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     167: { history: "TSG 1899 Hoffenheim", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     170: { history: "FC Augsburg", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     182: { history: "1. FC Union Berlin", trophies: [], mostApps: [], mostGoals: [], legends: [] },
