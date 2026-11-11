@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bundesliga & Team-Statistik Hub</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23DC052D%22/><text x=%2250%22 y=%2272%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%23FFFFFF%22>BL</text></svg>">
+
+    <style>
+        :root {
+            --bg-color: #070b12;
+            --card-bg: #0e1422;
+            --card-hover: #162035;
+            --accent-color: #DC052D;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --border-color: #21262d;
+            --success-green: #3fb950;
+            --warning-orange: #d29922;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 20px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 1300px; }
+
+        /* Header Style */
+        header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--border-color); }
+        .main-title { font-size: 2.4rem; font-weight: 800; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .main-title span { color: var(--accent-color); transition: color 0.3s; }
+        .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Author Badge */
+        .author-sub { 
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(90deg, #101828 0%, #0e1422 100%);
+            border: 1px solid var(--border-color); border-radius: 20px;
+            padding: 5px 14px 5px 6px; margin-top: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .author-avatar { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1px solid var(--accent-color); }
+        .author-text { color: var(--accent-color); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+
+        /* Info Kachel mit integriertem Zurück-Button */
+        .info-hero-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; margin-bottom: 25px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .info-content { max-width: 850px; }
+        .info-hero-card h2 { font-size: 1.1rem; color: var(--accent-color); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .info-hero-card p { color: var(--text-muted); line-height: 1.6; font-size: 0.92rem; }
+        
+        .reset-btn { background: #101828; color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; font-size: 0.88rem; font-weight: bold; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .reset-btn:hover { background: var(--card-hover); border-color: var(--accent-color); color: var(--accent-color); }
+
+        /* Club Selector Hub Bar */
+        .club-selector-wrapper { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 18px 22px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+        .club-select-info { display: flex; align-items: center; gap: 12px; }
+        .club-select-logo { width: 40px; height: 40px; object-fit: contain; }
+        .club-select-title { font-size: 1.05rem; font-weight: bold; color: var(--text-main); }
+        .club-select-sub { font-size: 0.78rem; color: var(--text-muted); }
+        
+        .club-select-dropdown { background: #070b12; color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; font-size: 0.95rem; font-weight: bold; cursor: pointer; outline: none; min-width: 320px; transition: border-color 0.2s; }
+        .club-select-dropdown:focus { border-color: var(--accent-color); }
+
+        /* Navigation Tabs */
+        .nav-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 25px; flex-wrap: wrap; }
+        .tab-btn { background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 600; transition: all 0.2s; }
+        .tab-btn:hover { background: var(--card-hover); color: var(--text-main); }
+        .tab-btn.active { background: var(--accent-color); color: #fff; border-color: var(--accent-color); box-shadow: 0 4px 15px rgba(0,0,0,0.4); font-weight: 700; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .status-box { background: var(--card-bg); border: 1px solid var(--border-color); padding: 12px 18px; border-radius: 10px; margin-bottom: 25px; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-bottom: 25px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 22px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+        .card h2 { font-size: 1.1rem; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; color: var(--accent-color); display: flex; align-items: center; gap: 8px; }
+
+        .metric-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(33, 38, 45, 0.6); font-size: 0.9rem; }
+        .metric-row:last-child { border-bottom: none; }
+        .metric-label { color: var(--text-muted); }
+        .metric-value { font-weight: bold; color: var(--text-main); }
+        .metric-value.highlight { color: var(--accent-color); }
+
+        .progress-container { margin-bottom: 12px; }
+        .progress-info { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
+        .progress-bar-bg { width: 100%; height: 8px; background: #101828; border-radius: 4px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: var(--accent-color); border-radius: 4px; transition: width 0.4s ease; }
+
+        /* Modernes Tabellen-Design */
+        .table-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        th { background: #101828; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.5px; padding: 14px 12px; border-bottom: 2px solid var(--border-color); }
+        td { padding: 11px 12px; border-bottom: 1px solid var(--border-color); color: var(--text-main); vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        .table-row { transition: background 0.15s; cursor: pointer; }
+        .table-row:hover { background: var(--card-hover); }
+        
+        td.center, th.center { text-align: center; }
+        td.right, th.right { text-align: right; }
+        tr.highlight-team-row { background: rgba(220, 5, 45, 0.15) !important; font-weight: bold; border-left: 4px solid var(--accent-color); }
+
+        .pos-badge { background: #101828; padding: 3px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); border: 1px solid var(--border-color); display: inline-block; }
+        .player-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); background: #101828; }
+        .rating-badge { background: rgba(220, 5, 45, 0.15); color: #DC052D; font-weight: bold; padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(220, 5, 45, 0.3); }
+        .card-yellow { background: #d29922; color: #000; font-weight: bold; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; display: inline-block; }
+        .card-red { background: #DC052D; color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; display: inline-block; }
+
+        /* PRO Match Popup Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; padding: 15px; }
+        .modal-content { background: var(--card-bg); border: 1px solid var(--accent-color); border-radius: 16px; width: 100%; max-width: 900px; max-height: 92vh; overflow-y: auto; padding: 25px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.6rem; color: var(--text-muted); cursor: pointer; background: none; border: none; }
+        .close-btn:hover { color: var(--text-main); }
+        
+        .modal-header-box { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        .modal-team-side { display: flex; align-items: center; gap: 12px; font-size: 1.2rem; font-weight: bold; }
+        .modal-team-side img { width: 45px; height: 45px; object-fit: contain; }
+        .modal-score-box { background: #101828; border: 1px solid var(--border-color); padding: 8px 20px; border-radius: 10px; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; color: var(--accent-color); }
+
+        /* Aufstellungen Grid */
+        .lineup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        @media (max-width: 750px) { .lineup-grid { grid-template-columns: 1fr; } }
+        .lineup-card { background: #070b12; border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; font-size: 0.82rem; }
+        .lineup-card h4 { color: var(--accent-color); margin-bottom: 8px; font-size: 0.95rem; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+        .sub-list, .goal-list, .card-list { margin-top: 10px; border-top: 1px dashed var(--border-color); padding-top: 8px; color: var(--text-muted); }
+
+        /* Spieldatistiken Balken */
+        .stat-row { margin-bottom: 12px; font-size: 0.85rem; }
+        .stat-info { display: flex; justify-content: space-between; margin-bottom: 4px; color: var(--text-muted); font-weight: 500; }
+        .stat-bar-container { display: flex; height: 8px; background: #101828; border-radius: 4px; overflow: hidden; gap: 2px; }
+        .stat-bar-home { background: var(--accent-color); height: 100%; transition: width 0.3s; }
+        .stat-bar-away { background: #38bdf8; height: 100%; transition: width 0.3s; }
+
+        .loading-state { text-align: center; padding: 40px; color: var(--text-muted); font-size: 1.1rem; }
+        .history-text { line-height: 1.7; color: var(--text-muted); font-size: 0.95rem; padding: 5px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="main-title">Bundesliga & Team-Statistik <span>Hub</span></div>
+            <div class="subtitle">Zentrales Live-Dashboard mit offiziellen Vereinsfarben & deinen Team-IDs</div>
+            <div class="author-sub">
+                <img src="https://lhusylpjnujlqomougmg.supabase.co/storage/v1/object/public/Bilder/Juergen%20Schuetzendorf.png" alt="Jürgen Schützendorf" class="author-avatar">
+                <span class="author-text">Webmanagement Jürgen Schützendorf</span>
+            </div>
+        </header>
+
+        <!-- Info-Kachel mit integriertem Zurück-Button -->
+        <div class="info-hero-card">
+            <div class="info-content">
+                <h2>ℹ️ Über diese App</h2>
+                <p>
+                    Der <b>Bundesliga & Team-Statistik Hub</b> ist deine zentrale Web-Anwendung zur Analyse aller 18 Erstligisten. Wähle deinen Verein aus, um Live-Daten, authentische Vereinsfarben, Vereinshistorie und die aktuelle Tabelle abzurufen.
+                </p>
+            </div>
+            <div>
+                <button id="resetMainBtn" class="reset-btn" onclick="resetToHome()">
+                    🔄 Zurück zur Hauptansicht
+                </button>
+            </div>
+        </div>
+
+        <!-- Club Selector Hub Bar -->
+        <div class="club-selector-wrapper">
+            <div class="club-select-info">
+                <img id="headerTeamLogo" src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%238b949e%22><path d=%22M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z%22/></svg>" alt="Logo" class="club-select-logo">
+                <div>
+                    <div class="club-select-title" id="headerTeamName">Kein Verein ausgewählt</div>
+                    <div class="club-select-sub" id="headerTeamSub">Wähle einen Klub aus dem Dropdown-Menü</div>
+                </div>
+            </div>
+            <div>
+                <select id="clubSelector" class="club-select-dropdown" onchange="changeClub()">
+                    <option value="" disabled selected>🔍 Bitte Verein auswählen...</option>
+                    <option value="RESET">🔄 Zurück zur Hauptansicht</option>
+                    <optgroup label="1. Bundesliga (Exakte IDs & Vereinsfarben)">
+                        <option value="157" data-color="#DC052D" style="color: #DC052D; font-weight: bold;">FC Bayern München (Rot-Weiß)</option>
+                        <option value="165" data-color="#FDE100" style="color: #FDE100; font-weight: bold;">Borussia Dortmund (Schwarz-Gelb)</option>
+                        <option value="168" data-color="#E32219" style="color: #E32219; font-weight: bold;">Bayer 04 Leverkusen (Schwarz-Rot)</option>
+                        <option value="173" data-color="#D00B23" style="color: #D00B23; font-weight: bold;">RB Leipzig (Rot-Weiß)</option>
+                        <option value="172" data-color="#E32219" style="color: #E32219; font-weight: bold;">VfB Stuttgart (Weiß-Rot)</option>
+                        <option value="169" data-color="#E32219" style="color: #E32219; font-weight: bold;">Eintracht Frankfurt (Rot-Schwarz-Weiß)</option>
+                        <option value="163" data-color="#00A650" style="color: #00A650; font-weight: bold;">Borussia Mönchengladbach (Schwarz-Weiß-Grün)</option>
+                        <option value="160" data-color="#E2001A" style="color: #E2001A; font-weight: bold;">SC Freiburg (Rot-Weiß)</option>
+                        <option value="162" data-color="#009A44" style="color: #009A44; font-weight: bold;">Werder Bremen (Grün-Weiß)</option>
+                        <option value="167" data-color="#003B7E" style="color: #003B7E; font-weight: bold;">TSG 1899 Hoffenheim (Blau-Weiß)</option>
+                        <option value="170" data-color="#BA0C2F" style="color: #BA0C2F; font-weight: bold;">FC Augsburg (Rot-Grün-Weiß)</option>
+                        <option value="182" data-color="#DA291C" style="color: #DA291C; font-weight: bold;">1. FC Union Berlin (Rot-Weiß)</option>
+                        <option value="164" data-color="#E32219" style="color: #E32219; font-weight: bold;">1. FSV Mainz 05 (Rot-Weiß)</option>
+                        <option value="192" data-color="#EF3340" style="color: #EF3340; font-weight: bold;">1. FC Köln (Rot-Weiß)</option>
+                        <option value="174" data-color="#00539F" style="color: #00539F; font-weight: bold;">FC Schalke 04 (Blau-Weiß)</option>
+                        <option value="175" data-color="#004B93" style="color: #004B93; font-weight: bold;">Hamburger SV (Rot-Weiß-Blau)</option>
+                        <option value="185" data-color="#002D62" style="color: #002D62; font-weight: bold;">SC Paderborn 07 (Blau-Schwarz)</option>
+                        <option value="1660" data-color="#111111" style="color: #cccccc; font-weight: bold;">SV Elversberg (Schwarz-Weiß)</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('tab-profile')">🏢 Vereins-Info & Historie</button>
+            <button class="tab-btn" onclick="switchTab('tab-stats')">📊 Saison-Statistiken & Minuten</button>
+            <button class="tab-btn" onclick="switchTab('tab-squad')">👥 Kader & Spielerstatistik</button>
+            <button class="tab-btn" onclick="switchTab('tab-fixtures')">📅 Spielplan & Live</button>
+            <button class="tab-btn" onclick="switchTab('tab-standings')">🏆 Ligatabelle</button>
+        </div>
+
+        <div id="apiStatusBanner" class="status-box">
+            <span>Bereit. Bitte wähle einen Verein aus.</span>
+        </div>
+
+        <!-- TAB 1: VEREINS-INFO & HISTORIE -->
+        <div id="tab-profile" class="tab-content active">
+            <div id="profileContainer" class="loading-state">Bitte wähle oben einen Verein aus, um die Statistiken zu laden.</div>
+        </div>
+
+        <!-- TAB 2: STATISTIKEN & MINUTEN -->
+        <div id="tab-stats" class="tab-content">
+            <div id="statsContainer" class="loading-state">Bitte wähle oben einen Verein aus, um die Statistiken zu laden.</div>
+        </div>
+
+        <!-- TAB 3: KADER -->
+        <div id="tab-squad" class="tab-content">
+            <div class="table-card">
+                <div id="squadContainer" class="loading-state">Bitte wähle oben einen Verein aus, um die Statistiken zu laden.</div>
+            </div>
+        </div>
+
+        <!-- TAB 4: SPIELPLAN -->
+        <div id="tab-fixtures" class="tab-content">
+            <!-- Eingefügter Hinweis zum Aufrufen der Spieldatistiken -->
+            <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 18px; margin-bottom: 15px; font-size: 0.88rem; color: var(--text-muted); display: flex; align-items: center; gap: 10px;">
+                <span>💡</span>
+                <span>Hinweis: Aktuelle Spielstatistiken, Aufstellungen, Torschützen und Karten sind abrufbar, indem man direkt auf das jeweilige Spiel in der Tabelle klickt.</span>
+            </div>
+            <div class="table-card">
+                <div id="fixturesContainer" class="loading-state">Bitte wähle oben einen Verein aus, um die Statistiken zu laden.</div>
+            </div>
+        </div>
+
+        <!-- TAB 5: TABELLE -->
+        <div id="tab-standings" class="tab-content">
+            <div class="table-card">
+                <div id="standingsContainer" class="loading-state">Bitte wähle oben einen Verein aus, um die Statistiken zu laden.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRO MATCH POPUP MODAL -->
+    <div id="matchModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            
+            <div class="modal-header-box" id="modalHeaderBox">
+                <div class="loading-state">Lade Spieldetails...</div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3 style="font-size: 0.95rem; color: var(--accent-color); margin-bottom: 10px;">Formationen, Aufstellungen, Torschützen, Wechsel & Karten</h3>
+                <div class="lineup-grid" id="modalLineupsGrid">
+                    <div class="loading-state">Lade Aufstellungen...</div>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="font-size: 0.95rem; color: var(--accent-color); margin-bottom: 8px;">Spieldatistiken</h3>
+                <div id="modalStatsBars" style="background: #070b12; border: 1px solid var(--border-color); border-radius: 12px; padding: 15px;">
+                    <div class="loading-state">Lade Statistiken...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WICHTIG: Externe Datendatei für historische Vereinsdaten -->
+    <script src="teams-data.js"></script>
+
+    <script>
+        const apiKey = "297322363f3bf16e1304cfb933a0c8d5";
+        const season = "2026";
+        const leagueId = 78; // 1. Bundesliga
+        
+        let currentTeamId = null; // Standardmäßig kein Verein vorausgewählt
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById("matchModal").style.display = "none";
+        }
+
+        function resetToHome() {
+            currentTeamId = null;
+            document.getElementById("clubSelector").value = "";
+            document.documentElement.style.setProperty('--accent-color', '#DC052D');
+            
+            document.getElementById("headerTeamName").innerText = "Kein Verein ausgewählt";
+            document.getElementById("headerTeamSub").innerText = "Wähle einen Klub aus dem Dropdown-Menü";
+            document.getElementById("headerTeamLogo").src = "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%238b949e%22><path d=%22M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z%22/></svg>";
+            
+            const msg = `<div class="loading-state">Bitte wähle oben einen Verein aus, um die Statistiken zu laden.</div>`;
+            document.getElementById("profileContainer").innerHTML = msg;
+            document.getElementById("statsContainer").innerHTML = msg;
+            document.getElementById("squadContainer").innerHTML = msg;
+            document.getElementById("fixturesContainer").innerHTML = msg;
+            document.getElementById("standingsContainer").innerHTML = msg;
+            
+            document.getElementById("apiStatusBanner").innerHTML = `<span>Bereit. Bitte wähle einen Verein aus.</span>`;
+        }
+
+        function changeClub() {
+            const selectEl = document.getElementById("clubSelector");
+            const selectedVal = selectEl.value;
+
+            if (selectedVal === "RESET" || !selectedVal) {
+                resetToHome();
+                return;
+            }
+
+            const selectedOption = selectEl.options[selectEl.selectedIndex];
+            currentTeamId = parseInt(selectedVal);
+            const clubColor = selectedOption.getAttribute("data-color") || "#DC052D";
+            
+            document.documentElement.style.setProperty('--accent-color', clubColor);
+            
+            const loadingMsg = `<div class="loading-state">Lade Vereinsstammdaten & Historie...</div>`;
+            document.getElementById("profileContainer").innerHTML = loadingMsg;
+            document.getElementById("statsContainer").innerHTML = `<div class="loading-state">Lade Saison-Statistiken...</div>`;
+            document.getElementById("squadContainer").innerHTML = `<div class="loading-state">Lade Spieler-Gesamtstatistik...</div>`;
+            document.getElementById("fixturesContainer").innerHTML = `<div class="loading-state">Lade Spielplan & Begegnungen...</div>`;
+            document.getElementById("standingsContainer").innerHTML = `<div class="loading-state">Lade Ligatabelle...</div>`;
+
+            initAll();
+        }
+
+        async function initAll() {
+            if (!currentTeamId) return;
+            const banner = document.getElementById("apiStatusBanner");
+            banner.innerHTML = `<span>Lade Live-Daten für Team-ID ${currentTeamId}...</span>`;
+
+            try {
+                const [teamRes, statsRes, playersRes, fixturesRes, standingsRes] = await Promise.all([
+                    fetch(`https://v3.football.api-sports.io/teams?id=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
+                    fetch(`https://v3.football.api-sports.io/teams/statistics?league=${leagueId}&season=${season}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
+                    fetch(`https://v3.football.api-sports.io/players?league=${leagueId}&season=${season}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
+                    fetch(`https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${season}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
+                    fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=${season}`, { headers: { "x-apisports-key": apiKey } })
+                ]);
+
+                const teamData = await teamRes.json();
+                const statsData = await statsRes.json();
+                const playersData = await playersRes.json();
+                const fixturesData = await fixturesRes.json();
+                const standingsData = await standingsRes.json();
+
+                if (teamData.response && teamData.response.length > 0) {
+                    const tInfo = teamData.response[0].team;
+                    document.getElementById("headerTeamName").innerText = tInfo.name;
+                    document.getElementById("headerTeamLogo").src = tInfo.logo;
+                    document.getElementById("headerTeamSub").innerText = `1. Bundesliga • Team-ID ${currentTeamId}`;
+                }
+
+                renderProfileAndHistory(teamData);
+                renderStats(statsData);
+                renderPlayerStats(playersData);
+                renderFixtures(fixturesData);
+                renderStandings(standingsData);
+
+                banner.innerHTML = `<span>🟢 Alle Endpunkte erfolgreich geladen</span><span>Saison: <b>${season}</b></span>`;
+            } catch (e) {
+                banner.innerHTML = `<span style="color:var(--accent-color);">❌ Fehler beim Abrufen der API-Daten: ${e.message}</span>`;
+            }
+        }
+
+        function renderProfileAndHistory(teamData) {
+            if (!teamData.response || teamData.response.length === 0) return;
+            const item = teamData.response[0];
+            const t = item.team;
+            const v = item.venue;
+            
+            const currentYear = new Date().getFullYear();
+            const clubAge = t.founded ? (currentYear - t.founded) : '-';
+            
+            const histData = (typeof teamHistories !== 'undefined' && teamHistories[currentTeamId]) ? teamHistories[currentTeamId] : { history: "Traditionsreicher deutscher Fußballverein.", trophies: [], mostApps: [], mostGoals: [], legends: [] };
+
+            let profileHtml = `
+                <div class="stats-grid">
+                    <div class="card">
+                        <h2>🏢 Vereins-Stammdaten</h2>
+                        <div class="metric-row"><span class="metric-label">Offizieller Name</span><span class="metric-value">${t.name}</span></div>
+                        <div class="metric-row"><span class="metric-label">Gründungsjahr</span><span class="metric-value highlight">${t.founded || '-'} (${clubAge} Jahre)</span></div>
+                        <div class="metric-row"><span class="metric-label">Stadt</span><span class="metric-value">${t.city}</span></div>
+                        <div class="metric-row"><span class="metric-label">Land</span><span class="metric-value">${t.country}</span></div>
+                        <div class="metric-row"><span class="metric-label">Club Code</span><span class="metric-value">${t.code || '-'}</span></div>
+                    </div>
+                    <div class="card">
+                        <h2>🏟️ Stadion-Informationen</h2>
+                        <div class="metric-row"><span class="metric-label">Stadion Name</span><span class="metric-value">${v.name}</span></div>
+                        <div class="metric-row"><span class="metric-label">Adresse</span><span class="metric-value">${v.address || '-'}</span></div>
+                        <div class="metric-row"><span class="metric-label">Stadt</span><span class="metric-value">${v.city}</span></div>
+                        <div class="metric-row"><span class="metric-label">Kapazität</span><span class="metric-value highlight">${v.capacity ? v.capacity.toLocaleString() : '-'} Plätze</span></div>
+                        <div class="metric-row"><span class="metric-label">Rasen</span><span class="metric-value">${v.surface || '-'}</span></div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 25px;">
+                    <h2>📜 Vereinshistorie</h2>
+                    <p class="history-text">${histData.history}</p>
+                </div>
+            `;
+
+            profileHtml += `
+                <div class="table-card" style="margin-top: 25px;">
+                    <div style="padding: 18px 20px; border-bottom: 1px solid var(--border-color); background: #101828;">
+                        <h2 style="font-size: 1.1rem; color: var(--accent-color); margin: 0; display: flex; align-items: center; gap: 8px;">🏆 Wichtigste Erfolge & Titel</h2>
+                    </div>
+            `;
+
+            if (histData.trophies && histData.trophies.length > 0) {
+                profileHtml += `<table><tr><th>Wettbewerb</th><th class="center">Anzahl / Titel</th><th>Details & Meilensteine</th></tr>`;
+                histData.trophies.forEach(tr => {
+                    profileHtml += `<tr class="table-row">
+                        <td><b>${tr.comp}</b></td>
+                        <td class="center"><span class="rating-badge">${tr.count}</span></td>
+                        <td style="color: var(--text-muted); font-size: 0.85rem;">${tr.seasons}</td>
+                    </tr>`;
+                });
+                profileHtml += `</table>`;
+            } else {
+                profileHtml += `<div style="padding: 30px; text-align: center; color: var(--text-muted);">Keine Trophäen-Einträge hinterlegt.</div>`;
+            }
+            profileHtml += `</div>`;
+
+            if (histData.mostApps && histData.mostApps.length > 0) {
+                profileHtml += `
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 25px; margin-top: 25px;">
+                        
+                        <div class="table-card">
+                            <div style="padding: 18px 20px; border-bottom: 1px solid var(--border-color); background: #101828;">
+                                <h2 style="font-size: 1.05rem; color: var(--accent-color); margin: 0; display: flex; align-items: center; gap: 8px;">📊 Spieler mit den meisten Einsätzen</h2>
+                            </div>
+                            <table>
+                                <tr>
+                                    <th class="center" style="width: 40px;">#</th>
+                                    <th>Spieler</th>
+                                    <th class="center">Zeitraum</th>
+                                    <th class="center">Spiele</th>
+                                </tr>
+                `;
+                histData.mostApps.forEach(item => {
+                    let nameStyle = item.active ? 'font-weight: bold; color: var(--accent-color);' : '';
+                    let countStyle = item.active ? 'font-weight: bold; color: var(--accent-color);' : '';
+                    profileHtml += `
+                        <tr class="table-row">
+                            <td class="center"><span class="pos-badge">${item.rank}</span></td>
+                            <td style="${nameStyle}">${item.name} ${item.active ? '⭐' : ''}</td>
+                            <td class="center" style="color: var(--text-muted); font-size: 0.82rem;">${item.period}</td>
+                            <td class="center" style="${countStyle}">${item.count}</td>
+                        </tr>
+                    `;
+                });
+                profileHtml += `</table></div>`;
+
+                profileHtml += `
+                        <div class="table-card">
+                            <div style="padding: 18px 20px; border-bottom: 1px solid var(--border-color); background: #101828;">
+                                <h2 style="font-size: 1.05rem; color: var(--accent-color); margin: 0; display: flex; align-items: center; gap: 8px;">⚽ Spieler mit den meisten Toren</h2>
+                            </div>
+                            <table>
+                                <tr>
+                                    <th class="center" style="width: 40px;">#</th>
+                                    <th>Spieler</th>
+                                    <th class="center">Zeitraum</th>
+                                    <th class="center">Tore</th>
+                                </tr>
+                `;
+                histData.mostGoals.forEach(item => {
+                    let nameStyle = item.active ? 'font-weight: bold; color: var(--accent-color);' : '';
+                    let countStyle = item.active ? 'font-weight: bold; color: var(--accent-color);' : '';
+                    profileHtml += `
+                        <tr class="table-row">
+                            <td class="center"><span class="pos-badge">${item.rank}</span></td>
+                            <td style="${nameStyle}">${item.name} ${item.active ? '⭐' : ''}</td>
+                            <td class="center" style="color: var(--text-muted); font-size: 0.82rem;">${item.period}</td>
+                            <td class="center" style="${countStyle}">${item.count}</td>
+                        </tr>
+                    `;
+                });
+                profileHtml += `</table></div></div>`;
+            }
+
+            if (histData.legends && histData.legends.length > 0) {
+                profileHtml += `
+                    <div class="table-card" style="margin-top: 25px;">
+                        <div style="padding: 18px 20px; border-bottom: 1px solid var(--border-color); background: #101828;">
+                            <h2 style="font-size: 1.1rem; color: var(--accent-color); margin: 0; display: flex; align-items: center; gap: 8px;">⭐ Bedeutende ehemalige Spieler & Klub-Legenden</h2>
+                        </div>
+                        <table>
+                            <tr>
+                                <th>Spieler / Trainer</th>
+                                <th class="center">Zeitraum</th>
+                                <th class="center">Position</th>
+                                <th>Historische Erläuterung & Meilensteine</th>
+                            </tr>
+                `;
+                histData.legends.forEach(lg => {
+                    profileHtml += `
+                        <tr class="table-row">
+                            <td><b>${lg.name}</b></td>
+                            <td class="center" style="color: var(--text-muted);">${lg.period}</td>
+                            <td class="center"><span class="pos-badge">${lg.pos}</span></td>
+                            <td style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5;">${lg.info}</td>
+                        </tr>
+                    `;
+                });
+                profileHtml += `</table></div>`;
+            }
+
+            document.getElementById("profileContainer").innerHTML = profileHtml;
+        }
+
+        function renderStats(data) {
+            if (!data.response) return;
+            const st = data.response;
+            const gVal = (obj, path) => path.reduce((acc, key) => (acc && acc[key] !== undefined) ? acc[key] : 0, obj);
+
+            let playedHome = gVal(st, ['fixtures', 'played', 'home']);
+            let playedAway = gVal(st, ['fixtures', 'played', 'away']);
+            let playedTotal = gVal(st, ['fixtures', 'played', 'total']);
+
+            let winsHome = gVal(st, ['fixtures', 'wins', 'home']);
+            let winsAway = gVal(st, ['fixtures', 'wins', 'away']);
+            let drawsHome = gVal(st, ['fixtures', 'draws', 'home']);
+            let drawsAway = gVal(st, ['fixtures', 'draws', 'away']);
+            let losesHome = gVal(st, ['fixtures', 'loses', 'home']);
+            let losesAway = gVal(st, ['fixtures', 'loses', 'away']);
+
+            let goalsForHome = gVal(st, ['goals', 'for', 'total', 'home']);
+            let goalsForAway = gVal(st, ['goals', 'for', 'total', 'away']);
+            let goalsAgainstHome = gVal(st, ['goals', 'against', 'total', 'home']);
+            let goalsAgainstAway = gVal(st, ['goals', 'against', 'total', 'away']);
+
+            let cleanSheetsTotal = gVal(st, ['clean_sheet', 'total']);
+            let cleanSheetsHome = gVal(st, ['clean_sheet', 'home']);
+            let cleanSheetsAway = gVal(st, ['clean_sheet', 'away']);
+
+            let failedTotal = gVal(st, ['failed_to_score', 'total']);
+            let failedHome = gVal(st, ['failed_to_score', 'home']);
+            let failedAway = gVal(st, ['failed_to_score', 'away']);
+
+            let formStr = st.form || "N/V";
+
+            let penScored = gVal(st, ['penalty', 'scored', 'total']);
+            let penMissed = gVal(st, ['penalty', 'missed', 'total']);
+            let penTotal = gVal(st, ['penalty', 'total']);
+
+            let html = `
+                <div class="stats-grid">
+                    <div class="card">
+                        <h2>📊 Saison-Bilanz & Form</h2>
+                        <div class="metric-row"><span class="metric-label">Aktuelle Formkurve</span><span class="metric-value highlight" style="letter-spacing:2px;">${formStr}</span></div>
+                        <div class="metric-row"><span class="metric-label">Spiele Gesamt</span><span class="metric-value">${playedTotal}</span></div>
+                        <div class="metric-row"><span class="metric-label">Heim (Spiele / Siege / Remis / Niederl.)</span><span class="metric-value">${playedHome} / ${winsHome} / ${drawsHome} / ${losesHome}</span></div>
+                        <div class="metric-row"><span class="metric-label">Auswärts (Spiele / Siege / Remis / Niederl.)</span><span class="metric-value">${playedAway} / ${winsAway} / ${drawsAway} / ${losesAway}</span></div>
+                    </div>
+                    <div class="card">
+                        <h2>⚽ Tore & Defensive</h2>
+                        <div class="metric-row"><span class="metric-label">Tore erzielt (Gesamt)</span><span class="metric-value highlight">${gVal(st, ['goals', 'for', 'total', 'total'])} (H: ${goalsForHome}, A: ${goalsForAway})</span></div>
+                        <div class="metric-row"><span class="metric-label">Gegentore (Gesamt)</span><span class="metric-value" style="color:#38bdf8;">${gVal(st, ['goals', 'against', 'total', 'total'])} (H: ${goalsAgainstHome}, A: ${goalsAgainstAway})</span></div>
+                        <div class="metric-row"><span class="metric-label">Spiele zu Null (Clean Sheets)</span><span class="metric-value" style="color:var(--success-green);">${cleanSheetsTotal} (H: ${cleanSheetsHome}, A: ${cleanSheetsAway})</span></div>
+                        <div class="metric-row"><span class="metric-label">Spiele ohne eigenen Treffer</span><span class="metric-value" style="color:var(--warning-orange);">${failedTotal} (H: ${failedHome}, A: ${failedAway})</span></div>
+                    </div>
+                    <div class="card">
+                        <h2>🎯 Elfmeter (Penalty)</h2>
+                        <div class="metric-row"><span class="metric-label">Gesamt erhalten / getreten</span><span class="metric-value">${penTotal}</span></div>
+                        <div class="metric-row"><span class="metric-label">Erzielte Tore per Elfmeter</span><span class="metric-value" style="color:var(--success-green);">${penScored}</span></div>
+                        <div class="metric-row"><span class="metric-label">Verschossene Elfmeter</span><span class="metric-value" style="color:var(--warning-orange);">${penMissed}</span></div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom: 25px;">
+                    <h2>⏱️ Tor-Verteilung: Erzielt nach Spielminuten</h2>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+            `;
+
+            const standardIntervals = ["0-15", "16-30", "31-45", "46-60", "61-75", "76-90", "91-105", "106-120"];
+            
+            standardIntervals.forEach(min => {
+                let mObj = st.goals?.for?.minute?.[min] || { total: 0, percentage: "0%" };
+                html += `
+                    <div class="progress-container">
+                        <div class="progress-info"><span>Minute ${min}</span><span><b>${mObj.total || 0} Tore</b> (${mObj.percentage || '0%'})</span></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${mObj.percentage || '0%'};"></div></div>
+                    </div>
+                `;
+            });
+
+            html += `</div></div>
+                <div class="card" style="margin-bottom: 25px;">
+                    <h2>🛡️ Gegentor-Verteilung nach Spielminuten</h2>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+            `;
+
+            standardIntervals.forEach(min => {
+                let mAObj = st.goals?.against?.minute?.[min] || { total: 0, percentage: "0%" };
+                html += `
+                    <div class="progress-container">
+                        <div class="progress-info"><span>Minute ${min}</span><span><b>${mAObj.total || 0} Gegentore</b> (${mAObj.percentage || '0%'})</span></div>
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" style="background:#38bdf8; width: ${mAObj.percentage || '0%'};"></div></div>
+                    </div>
+                `;
+            });
+
+            html += `</div></div>
+                <div class="card">
+                    <h2>🟨🟥 Disziplin & Karten-Verteilung nach Minuten</h2>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+            `;
+
+            html += `<div><h3 style="font-size:0.9rem; color:var(--warning-orange); margin-bottom:10px;">Gelbe Karten</h3>`;
+            standardIntervals.forEach(min => {
+                let yObj = st.cards?.yellow?.[min] || { total: 0, percentage: "0%" };
+                html += `
+                    <div class="progress-info" style="margin-top:6px;"><span>Min. ${min}</span><span><b>${yObj.total || 0}</b> (${yObj.percentage || '0%'})</span></div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="background:var(--warning-orange); width: ${yObj.percentage || '0%'};"></div></div>
+                `;
+            });
+            html += `</div>`;
+
+            html += `<div><h3 style="font-size:0.9rem; color:#DC052D; margin-bottom:10px;">Rote Karten</h3>`;
+            standardIntervals.forEach(min => {
+                let rObj = st.cards?.red?.[min] || { total: 0, percentage: "0%" };
+                html += `
+                    <div class="progress-info" style="margin-top:6px;"><span>Min. ${min}</span><span><b>${rObj.total || 0}</b> (${rObj.percentage || '0%'})</span></div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="background:#DC052D; width: ${rObj.percentage || '0%'};"></div></div>
+                `;
+            });
+            html += `</div></div></div>`;
+
+            document.getElementById("statsContainer").innerHTML = html;
+        }
+
+        function renderPlayerStats(data) {
+            if (!data.response) return;
+            let players = data.response.map(item => {
+                let p = item.player;
+                let s = item.statistics[0] || {};
+                return {
+                    name: p.name,
+                    photo: p.photo,
+                    games: s.games?.appearences || 0,
+                    min: s.games?.minutes || 0,
+                    rating: s.games?.rating ? parseFloat(s.games.rating).toFixed(2) : '-',
+                    goals: s.goals?.total || 0,
+                    assists: s.goals?.assists || 0,
+                    yellow: s.cards?.yellow || 0,
+                    red: (s.cards?.red || 0) + (s.cards?.yellowred || 0)
+                };
+            }).sort((a, b) => b.goals - a.goals);
+
+            let html = `<table><tr><th style="width: 50px;" class="center">Foto</th><th>Spieler</th><th class="center">Spiele</th><th class="center">Min</th><th class="center">Ø Note</th><th class="center">Tore</th><th class="center">Assists</th><th class="center">Gelb</th><th class="center">Rot</th></tr>`;
+            players.forEach(pl => {
+                let ratingVal = pl.rating !== '-' ? `<span class="rating-badge">${pl.rating}</span>` : '-';
+                let yellowVal = pl.yellow > 0 ? `<span class="card-yellow">${pl.yellow}</span>` : '-';
+                let redVal = pl.red > 0 ? `<span class="card-red">${pl.red}</span>` : '-';
+
+                html += `<tr class="table-row">
+                    <td class="center"><img src="${pl.photo}" class="player-img" alt="${pl.name}" onerror="this.src='https://media.api-sports.io/football/players/default.png'"></td>
+                    <td><b>${pl.name}</b></td>
+                    <td class="center">${pl.games}</td>
+                    <td class="center">${pl.min}</td>
+                    <td class="center">${ratingVal}</td>
+                    <td class="center"><b>${pl.goals}</b></td>
+                    <td class="center">${pl.assists}</td>
+                    <td class="center">${yellowVal}</td>
+                    <td class="center">${redVal}</td>
+                </tr>`;
+            });
+            document.getElementById("squadContainer").innerHTML = html + `</table>`;
+        }
+
+        function renderFixtures(data) {
+            if (!data.response) return;
+            let html = `<table><tr><th>Datum</th><th>Heim</th><th class="center">Ergebnis</th><th>Gast</th><th class="center">Status</th></tr>`;
+            data.response.forEach(m => {
+                let dateStr = new Date(m.fixture.date).toLocaleDateString("de-DE", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                let score = m.goals.home !== null ? `${m.goals.home} : ${m.goals.away}` : 'vs';
+                html += `<tr class="table-row" onclick="openMatchDetails(${m.fixture.id})">
+                    <td>${dateStr}</td>
+                    <td><div style="display:flex; align-items:center; gap:8px;"><img src="${m.teams.home.logo}" style="width:20px; height:20px; object-fit:contain;"><span>${m.teams.home.name}</span></div></td>
+                    <td class="center"><span style="background:#101828; padding:4px 10px; border-radius:6px; border:1px solid var(--border-color); font-weight:bold;">${score}</span></td>
+                    <td><div style="display:flex; align-items:center; gap:8px;"><img src="${m.teams.away.logo}" style="width:20px; height:20px; object-fit:contain;"><span>${m.teams.away.name}</span></div></td>
+                    <td class="center"><span class="pos-badge">${m.fixture.status.short}</span></td>
+                </tr>`;
+            });
+            document.getElementById("fixturesContainer").innerHTML = html + `</table>`;
+        }
+
+        async function openMatchDetails(fixtureId) {
+            const modal = document.getElementById("matchModal");
+            modal.style.display = "flex";
+            document.getElementById("modalHeaderBox").innerHTML = `<div class="loading-state" style="width:100%;">Lade Spieldetails...</div>`;
+            document.getElementById("modalLineupsGrid").innerHTML = "<div class='loading-state'>Lade Aufstellungen & Torschützen...</div>";
+            document.getElementById("modalStatsBars").innerHTML = "<div class='loading-state'>Lade Statistiken...</div>";
+
+            try {
+                const [fixRes, statsRes, lineupsRes] = await Promise.all([
+                    fetch(`https://v3.football.api-sports.io/fixtures?id=${fixtureId}`, { headers: { "x-apisports-key": apiKey } }),
+                    fetch(`https://v3.football.api-sports.io/fixtures/statistics?fixture=${fixtureId}`, { headers: { "x-apisports-key": apiKey } }),
+                    fetch(`https://v3.football.api-sports.io/fixtures/lineups?fixture=${fixtureId}`, { headers: { "x-apisports-key": apiKey } })
+                ]);
+
+                const fixData = await fixRes.json();
+                const statsData = await statsRes.json();
+                const lineupsData = await lineupsRes.json();
+
+                if (fixData.response && fixData.response.length > 0) {
+                    const match = fixData.response[0];
+                    const home = match.teams.home;
+                    const away = match.teams.away;
+                    const events = match.events || [];
+
+                    document.getElementById("modalHeaderBox").innerHTML = `
+                        <div class="modal-team-side"><img src="${home.logo}"><span>${home.name}</span></div>
+                        <div style="text-align:center;">
+                            <div class="modal-score-box">${match.goals.home ?? 0} : ${match.goals.away ?? 0}</div>
+                            <div style="color:var(--text-muted); font-size:0.75rem; margin-top:4px;">Status: ${match.fixture.status.long}</div>
+                            ${match.fixture.referee ? `<div style="color:var(--accent-color); font-size:0.75rem;">👨‍⚖️ ${match.fixture.referee}</div>` : ''}
+                        </div>
+                        <div class="modal-team-side" style="justify-content: flex-end;"><span>${away.name}</span><img src="${away.logo}"></div>
+                    `;
+
+                    let lineupsHtml = "";
+                    if (lineupsData.response && lineupsData.response.length === 2) {
+                        lineupsData.response.forEach(l => {
+                            let teamName = l.team.name;
+                            let startxi = l.startXI || [];
+                            let subs = l.substitutes || [];
+                            let teamEvents = events.filter(e => e.team.id === l.team.id);
+                            
+                            let goalEvents = teamEvents.filter(e => e.type === 'Goal');
+                            let matchSubs = teamEvents.filter(e => e.type === 'subst');
+                            let matchCards = teamEvents.filter(e => e.type === 'Card');
+
+                            lineupsHtml += `
+                                <div class="lineup-card">
+                                    <h4><span>🛡️ ${teamName}</span><span style="font-size:0.75rem; color:var(--text-muted);">Trainer: ${l.coach?.name || '-'}</span></h4>
+                                    <div style="margin-bottom:8px; color:var(--text-muted);">Formation: <b>${l.formation || '-'}</b></div>
+                                    
+                                    <div style="margin-bottom:6px;"><b>Startelf:</b></div>
+                                    <div style="display:flex; flex-direction:column; gap:3px; margin-bottom:10px;">
+                            `;
+                            startxi.forEach(p => {
+                                lineupsHtml += `<span>#${p.player.number} ${p.player.name} (${p.player.pos})</span>`;
+                            });
+
+                            lineupsHtml += `</div><div style="margin-bottom:6px;"><b>Bank:</b></div><div style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:10px; color:var(--text-muted);">`;
+                            subs.forEach(p => {
+                                lineupsHtml += `<span style="background:#0e1422; padding:2px 6px; border-radius:4px; border:1px solid var(--border-color);">#${p.player.number} ${p.player.name}</span>`;
+                            });
+                            lineupsHtml += `</div>`;
+
+                            if(goalEvents.length > 0) {
+                                lineupsHtml += `<div class="goal-list"><b style="color:var(--success-green);">⚽ Tore:</b><br>`;
+                                goalEvents.forEach(ge => {
+                                    lineupsHtml += `<span>${ge.time.elapsed}' ${ge.player.name}</span><br>`;
+                                });
+                                lineupsHtml += `</div>`;
+                            }
+
+                            if(matchSubs.length > 0) {
+                                lineupsHtml += `<div class="sub-list"><b>Auswechslungen:</b><br>`;
+                                matchSubs.forEach(ms => {
+                                    lineupsHtml += `<span>${ms.time.elapsed}' Ein: ${ms.player.name} | Aus: ${ms.assist?.name || '-'}</span><br>`;
+                                });
+                                lineupsHtml += `</div>`;
+                            }
+
+                            if(matchCards.length > 0) {
+                                lineupsHtml += `<div class="card-list" style="color:var(--warning-orange);"><b>Karten:</b><br>`;
+                                matchCards.forEach(mc => {
+                                    let cIcon = mc.detail === 'Yellow Card' ? '🟨' : '🟥';
+                                    lineupsHtml += `<span>${cIcon} ${mc.time.elapsed}' ${mc.player.name}</span><br>`;
+                                });
+                                lineupsHtml += `</div>`;
+                            }
+
+                            lineupsHtml += `</div>`;
+                        });
+                    } else {
+                        lineupsHtml = `<div style="color:var(--text-muted); padding:10px;">Aufstellungen für diese Partie noch nicht verfügbar.</div>`;
+                    }
+                    document.getElementById("modalLineupsGrid").innerHTML = lineupsHtml;
+
+                    let statsHtml = "";
+                    if (statsData.response && statsData.response.length === 2) {
+                        let hStats = statsData.response[0].statistics;
+                        let aStats = statsData.response[1].statistics;
+                        for (let i = 0; i < hStats.length; i++) {
+                            let hVal = hStats[i].value ?? 0;
+                            let aVal = aStats[i].value ?? 0;
+                            let numH = parseFloat(hVal) || 0;
+                            let numA = parseFloat(aVal) || 0;
+                            let total = numH + numA;
+                            let hPer = total > 0 ? (numH / total) * 100 : 50;
+                            statsHtml += `
+                                <div class="stat-row">
+                                    <div class="stat-info"><span>${hVal}</span><span>${hStats[i].type}</span><span>${aVal}</span></div>
+                                    <div class="stat-bar-container">
+                                        <div class="stat-bar-home" style="width: ${hPer}%;"></div>
+                                        <div class="stat-bar-away" style="width: ${100 - hPer}%;"></div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }
+                    document.getElementById("modalStatsBars").innerHTML = statsHtml !== "" ? statsHtml : "<div style='color:var(--text-muted); text-align:center;'>Statistiken für dieses Spiel nicht verfügbar.</div>";
+                }
+            } catch (e) {
+                document.getElementById("modalHeaderBox").innerHTML = "<div style='color:var(--accent-color); text-align:center; width:100;'>Fehler beim Laden der Spieldetails.</div>";
+            }
+        }
+
+        function renderStandings(data) {
+            if (!data.response) return;
+            const standings = data.response[0].league.standings[0];
+            let html = `<table><tr><th class="center" style="width: 50px;">#</th><th>Team</th><th class="center">Sp</th><th class="center">S</th><th class="center">U</th><th class="center">N</th><th class="center">Tore</th><th class="center">Diff</th><th class="right">Pkt</th></tr>`;
+            standings.forEach(s => {
+                let isCurrentTeam = s.team.id === currentTeamId;
+                html += `<tr class="table-row ${isCurrentTeam ? 'highlight-team-row' : ''}">
+                    <td class="center"><b>${s.rank}</b></td>
+                    <td><div style="display:flex; align-items:center; gap:8px;"><img src="${s.team.logo}" style="width:18px; height:18px; object-fit:contain;"><span>${s.team.name}</span></div></td>
+                    <td class="center">${s.all.played}</td>
+                    <td class="center">${s.all.win}</td>
+                    <td class="center">${s.all.draw}</td>
+                    <td class="center">${s.all.lose}</td>
+                    <td class="center">${s.all.goals.for}:${s.all.goals.against}</td>
+                    <td class="center">${s.goalsDiff > 0 ? '+' + s.goalsDiff : s.goalsDiff}</td>
+                    <td class="right"><b>${s.points}</b></td>
+                </tr>`;
+            });
+            document.getElementById("standingsContainer").innerHTML = html + `</table>`;
+        }
+    </script>
+</body>
+</html>
