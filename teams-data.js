@@ -528,7 +528,52 @@ const teamHistories = {
             { name: "Emil Forsberg", period: "2015–2023", pos: "Mittelfeld", info: "Genialer Spielgestalter und Publikumsliebling aus der Aufstiegsära." }
         ]
     },
-    172: { history: "VfB Stuttgart", trophies: [], mostApps: [], mostGoals: [], legends: [] },
+    172: {
+        history: "Gründung am 9. September 1893. Der VfB Stuttgart ist mit über 135.000 Mitgliedern der größte Sportverein Baden-Württembergs. Bekannt vor allem für seine Fußballabteilung, die in der MHPArena (Bad Cannstatt) ihre Heimspiele austrägt. Zu den größten Erfolgen zählen 5 Deutsche Meisterschaften (1950, 1952, 1984, 1992, 2007), 4 DFB-Pokalsiege (1954, 1958, 1997, 2025) sowie mehrere Vize-Meisterschaften und internationale Finalteilnahmen.",
+        trophies: [
+            { comp: "Deutscher Meister", count: "5 Mal", seasons: "1950, 1952, 1984, 1992, 2007" },
+            { comp: "Deutscher Vizemeister", count: "5 Mal", seasons: "1935, 1953, 1979, 2003, 2024" },
+            { comp: "DFB-Pokalsieger", count: "4 Mal", seasons: "1954, 1958, 1997, 2025" },
+            { comp: "DFB-Pokal-Finalist", count: "4 Mal", seasons: "1986, 2007, 2013, 2026" },
+            { comp: "Deutscher Supercupsieger", count: "1 Mal", seasons: "1992" },
+            { comp: "UEFA-Cup-Finalist", count: "1 Mal", seasons: "1989" }
+        ],
+        mostApps: [
+            { rank: 1, name: "Karl Allgöwer", period: "1980–1991", count: "410", active: false },
+            { rank: 2, name: "Robert Schlienz", period: "1942–1958", count: "401", active: false },
+            { rank: 3, name: "Günther Schäfer", period: "1980–1996", count: "396", active: false },
+            { rank: 4, name: "Guido Buchwald", period: "1983–1994", count: "386", active: false },
+            { rank: 5, name: "Zvonimir Soldo", period: "1996–2006", count: "379", active: false },
+            { rank: 6, name: "Rolf Blessing", period: "1949–1960", count: "359", active: false },
+            { rank: 7, name: "Miroslav Votava", period: "1996–2000", count: "357", active: false },
+            { rank: 8, name: "Erich Retter", period: "1949–1959", count: "354", active: false },
+            { rank: 9, name: "Helmut Roleder", period: "1972–1986", count: "343", active: false },
+            { rank: 10, name: "Karlheinz Förster", period: "1977–1986", count: "326", active: false }
+        ],
+        mostGoals: [
+            { rank: 1, name: "Hermann Ohlicher", period: "1973–1985", count: "157", active: false },
+            { rank: 2, name: "Robert Schlienz", period: "1942–1958", count: "144", active: false },
+            { rank: 3, name: "Karl Allgöwer", period: "1980–1991", count: "164", active: false },
+            { rank: 4, name: "Fritz Walter", period: "1987–1994", count: "123", active: false },
+            { rank: 5, name: "Erwin Waldner", period: "1952–1960, 1965–1966", count: "113", active: false },
+            { rank: 6, name: "Jürgen Klinsmann", period: "1984–1989", count: "94", active: false },
+            { rank: 7, name: "Fredi Bobic", period: "1994–1999", count: "86", active: false },
+            { rank: 8, name: "Mario Gómez", period: "2003–2009, 2018–2020", count: "85", active: false },
+            { rank: 9, name: "Cacau", period: "2003–2014", count: "80", active: false },
+            { rank: 10, name: "Hansi Müller", period: "1975–1982", count: "70", active: false }
+        ],
+        legends: [
+            { name: "Karl Allgöwer", period: "1980–1991", pos: "Mittelfeld", info: "Rekordspieler und -torschütze des VfB in der Bundesliga, Deutscher Meister 1984." },
+            { name: "Robert Schlienz", period: "1942–1958", pos: "Mittelfeld / Sturm", info: "Stuttgarter Jahrhundert-Ikone, zweifacher Meister und Pokalsieger." },
+            { name: "Guido Buchwald", period: "1983–1994", pos: "Abwehr / Mittelfeld", info: "„Diego“, zweimaliger Meister und Weltmeister 1990." },
+            { name: "Krassimir Balakow", period: "1995–2003", pos: "Mittelfeld", info: "Teil des legendären „Magischen Dreiecks“ und Pokalsieger 1997." },
+            { name: "Fredi Bobic", period: "1994–1999", pos: "Sturm", info: "Torschützenkönig 1996, Teil des „Magischen Dreiecks“." },
+            { name: "Giovane Élber", period: "1994–1997", pos: "Sturm", info: "Doppeltorschütze im DFB-Pokalfinale 1997, Teil des „Magischen Dreiecks“." },
+            { name: "Mario Gómez", period: "2003–2009, 2018–2020", pos: "Sturm", info: "Deutscher Meister 2007 und Nationalstürmer." },
+            { name: "Sami Khedira", period: "2006–2010", pos: "Mittelfeld", info: "Eigengewächs, erzielte 2007 das entscheidende Meistertor." },
+            { name: "Jürgen Klinsmann", period: "1984–1989", pos: "Sturm", info: "Bundesliga-Torschützenkönig 1988 und Weltklasse-Stürmer." }
+        ]
+    },
     169: { history: "Eintracht Frankfurt", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     160: { history: "SC Freiburg", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     167: { history: "TSG 1899 Hoffenheim", trophies: [], mostApps: [], mostGoals: [], legends: [] },
