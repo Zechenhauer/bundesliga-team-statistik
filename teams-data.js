@@ -574,7 +574,50 @@ const teamHistories = {
             { name: "Jürgen Klinsmann", period: "1984–1989", pos: "Sturm", info: "Bundesliga-Torschützenkönig 1988 und Weltklasse-Stürmer." }
         ]
     },
-    169: { history: "Eintracht Frankfurt", trophies: [], mostApps: [], mostGoals: [], legends: [] },
+    169: {
+        history: "Gegründet am 8. Juli 1899. Eintracht Frankfurt ist einer der traditionsreichsten Vereine im deutschen Fußball und belegt Platz 7 der Ewigen Tabelle der Bundesliga. Zu den größten Erfolgen zählen die Deutsche Meisterschaft 1959, fünf DFB-Pokalsiege (1974, 1975, 1981, 1988, 2018), der Gewinn des UEFA-Pokals 1980 sowie der Triumph in der UEFA Europa League 2022.",
+        trophies: [
+            { comp: "Deutscher Meister", count: "1 Mal", seasons: "1959" },
+            { comp: "Deutscher Vizemeister", count: "1 Mal", seasons: "1932" },
+            { comp: "DFB-Pokalsieger", count: "5 Mal", seasons: "1974, 1975, 1981, 1988, 2018" },
+            { comp: "DFB-Pokal-Finalist", count: "4 Mal", seasons: "1964, 2006, 2017, 2023" },
+            { comp: "UEFA-Pokal / Europa League", count: "2 Mal", seasons: "1980, 2022" },
+            { comp: "Europapokal der Landesmeister", count: "Finalist", seasons: "1960" }
+        ],
+        mostApps: [
+            { rank: 1, name: "Karl-Heinz Körbel", period: "1972–1991", count: "602", active: false },
+            { rank: 2, name: "Jürgen Grabowski", period: "1965–1980", count: "441", active: false },
+            { rank: 3, name: "Bernd Nickel", period: "1967–1983", count: "426", active: false },
+            { rank: 4, name: "Bernd Hölzenbein", period: "1967–1981", count: "420", active: false },
+            { rank: 5, name: "Ralf Falkenmayer", period: "1980–1987, 1989–1996", count: "337", active: false },
+            { rank: 6, name: "Manfred Binz", period: "1985–1996", count: "336", active: false },
+            { rank: 7, name: "Kevin Trapp", period: "2012–2015, 2018–heute", count: "293", active: true },
+            { rank: 8, name: "Marco Russ", period: "2004–2011, 2013–2020", count: "280", active: false },
+            { rank: 9, name: "Alex Meier", period: "2004–2018", count: "270", active: false },
+            { rank: 10, name: "Willi Neuberger", period: "1974–1983", count: "267", active: false }
+        ],
+        mostGoals: [
+            { rank: 1, name: "Bernd Hölzenbein", period: "1967–1981", count: "160", active: false },
+            { rank: 2, name: "Bernd Nickel", period: "1967–1983", count: "141", active: false },
+            { rank: 3, name: "Jürgen Grabowski", period: "1965–1980", count: "109", active: false },
+            { rank: 4, name: "Alex Meier", period: "2004–2018", count: "93", active: false },
+            { rank: 5, name: "Anthony Yeboah", period: "1990–1995", count: "68", active: false },
+            { rank: 6, name: "Willi Huberts", period: "1963–1970", count: "67", active: false },
+            { rank: 7, name: "Rüdiger Wenzel", period: "1975–1983", count: "51", active: false },
+            { rank: 8, name: "Bum-kun Cha", period: "1979–1983", count: "46", active: false },
+            { rank: 8, name: "Wolfgang Solz", period: "1963–1969", count: "46", active: false },
+            { rank: 10, name: "Karl-Heinz Körbel", period: "1972–1991", count: "45", active: false }
+        ],
+        legends: [
+            { name: "Karl-Heinz „Charly“ Körbel", period: "1972–1991", pos: "Abwehr", info: "Bundesliga-Rekordspieler mit 602 Einsätzen, Eintracht-Legende und langjähriger Führungsspieler." },
+            { name: "Jürgen Grabowski", period: "1965–1980", pos: "Mittelfeld / Sturm", info: "Welt- und Europameister, Kapitän und prägende Offensivikone." },
+            { name: "Bernd Hölzenbein", period: "1967–1981", pos: "Sturm", info: "Rekordtorschütze der Eintracht (160 Tore) und Weltmeister 1974." },
+            { name: "Bernd Nickel", period: "1967–1983", pos: "Mittelfeld", info: "Kult-Spieler und Freistoßspezialist („Dr. Hammer“)." },
+            { name: "Alex Meier", period: "2004–2018", pos: "Sturm", info: "„Fußballgott“, Torschützenkönig der Bundesliga 2015 und Eintracht-Fanliebling." },
+            { name: "Anthony Yeboah", period: "1990–1995", pos: "Sturm", info: "Torgefährlicher Bundesliga-Torschützenkönig und Publikumsliebling." },
+            { name: "Kevin Trapp", period: "2012–2015, 2018–heute", pos: "Tor", info: "Europa-League-Held, Nationaltorhüter und langjähriger Kapitän." }
+        ]
+    },
     160: { history: "SC Freiburg", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     167: { history: "TSG 1899 Hoffenheim", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     170: { history: "FC Augsburg", trophies: [], mostApps: [], mostGoals: [], legends: [] },
