@@ -842,7 +842,64 @@ const teamHistories = {
             { name: "Yannik Engelhardt", period: "2026", pos: "Mittelfeld", info: "Aktueller DFB-Nationalspieler des SC Freiburg (Stand 2026)." }
         ]
     },
-    167: { history: "TSG 1899 Hoffenheim", trophies: [], mostApps: [], mostGoals: [], legends: [] },
+    167: {
+        history: "Die Turn- und Sportgemeinschaft Hoffenheim 1899 e. V., kurz TSG 1899 Hoffenheim oder TSG Hoffenheim, ist ein Sportverein aus dem Sinsheimer Stadtteil Hoffenheim mit rund 13.000 Mitgliedern (Stand Juli 2026). Die Fußballabteilung wurde 2005 in eine Spielbetriebs GmbH ausgegliedert. Seit 2008 spielen die Männer ununterbrochen in der Bundesliga. Zu den größten Erfolgen der Vereinsgeschichte zählen der 3. Platz in der Bundesliga 2017/18 mit direkter Champions-League-Qualifikation sowie Teilnahmen an der UEFA Europa League.",
+        trophies: [
+            { comp: "Bundesliga", count: "3. Platz", seasons: "2017/18 (Direkte Champions-League-Qualifikation)" },
+            { comp: "2. Bundesliga", count: "Vize-Meister & Aufstieg", seasons: "2008" },
+            { comp: "Regionalliga Süd", count: "Vize-Meister & Aufstieg", seasons: "2007" },
+            { comp: "Oberliga Baden-Württemberg", count: "Meister & Aufstieg", seasons: "2001" },
+            { comp: "Verbandsliga Baden", count: "Meister & Aufstieg", seasons: "2000" },
+            { comp: "Badischer Pokalsieger", count: "4x", seasons: "2002, 2003, 2004, 2005" }
+        ],
+        mostApps: [
+            { rank: 1, name: "Oliver Baumann", period: "seit 2014", count: "403 Spiele", active: true },
+            { rank: 2, name: "Sebastian Rudy", period: "2010–2017, 2019–2023", count: "327 Spiele", active: false },
+            { rank: 3, name: "Andrej Kramarić", period: "seit 2016", count: "325 Spiele", active: true },
+            { rank: 4, name: "Pavel Kadeřábek", period: "2015–2025", count: "287 Spiele", active: false },
+            { rank: 5, name: "Sejad Salihović", period: "2006–2015", count: "249 Spiele", active: false }
+        ],
+        mostGoals: [
+            { rank: 1, name: "Andrej Kramarić", period: "seit 2016", count: "143 Tore", active: true },
+            { rank: 2, name: "Sejad Salihović", period: "2006–2015", count: "67 Tore", active: false },
+            { rank: 3, name: "Vedad Ibišević", period: "2007–2011", count: "54 Tore", active: false },
+            { rank: 4, name: "Roberto Firmino", period: "2011–2015", count: "49 Tore", active: false },
+            { rank: 5, name: "Thomas Ollhoff", period: "2002–2005", count: "42 Tore", active: false }
+        ],
+        legends: [
+            { name: "Julian Nagelsmann", period: "2016–2019", pos: "Cheftrainer", info: "Deutschlands Fußballtrainer des Jahres 2017 und VDV-Trainer des Jahres 2016/17; führte die TSG in die Champions League." },
+            { name: "Hansi Flick", period: "2000–2005", pos: "Cheftrainer", info: "Prägte als Cheftrainer die erfolgreichen Aufbaujahre der TSG Hoffenheim in der Oberliga und Regionalliga." },
+            { name: "Ralf Rangnick", period: "2006–2011", pos: "Cheftrainer", info: "Architekt des modernen Hoffenheimer Aufschwungs von der Regionalliga bis in die Bundesliga-Spitzengruppe." },
+            { name: "Oliver Baumann", period: "seit 2014", pos: "Torwart", info: "Absoluter Rekordspieler der TSG mit über 403 Einsätzen im Bundesliga-Tor." },
+            { name: "Andrej Kramarić", period: "seit 2016", pos: "Sturm", info: "Rekordtorschütze der Vereinsgeschichte (143+ Tore) und absoluter Offensiv-Leitwolf." },
+            { name: "Vedad Ibišević", period: "2007–2011", pos: "Sturm", info: "Herbstmeister-Ikone 2008, Spieler des Monats Oktober 2008 und im kicker als „Weltklasse“ eingestuft." },
+            { name: "Roberto Firmino", period: "2011–2015", pos: "Sturm / Mittelfeld", info: "Weltklasse-Techniker, schaffte in Hoffenheim den Sprung zum brasilianischen Nationalspieler und Liverpool-Star." },
+            { name: "Sejad Salihović", period: "2006–2015", pos: "Mittelfeld", info: "Gefürchteter Standard-Spezialist und Identifikationsfigur der Aufstiegs- und Bundesligajahre." },
+            { name: "Sebastian Rudy", period: "2010–2017, 2019–2023", pos: "Mittelfeld", info: "Langjähriger Mittelfeldstratege und mit 327 Pflichtspielen einer der Rekordspieler des Vereins." },
+            { name: "Niklas Süle", period: "2012–2017", pos: "Abwehr", info: "TSG-Eigengewächs, schaffte es 2016/17 in das VDV-Team der Saison und wurde Nationalspieler." }
+        ],
+        trainers: [
+            { period: "2000–2005", name: "Hansi Flick" },
+            { period: "2005", name: "Roland Dickgießer (interim)" },
+            { period: "2006", name: "Lorenz-Günther Köstner" },
+            { period: "2006", name: "Alfred Schön (interim)" },
+            { period: "2006–2011", name: "Ralf Rangnick" },
+            { period: "2011", name: "Marco Pezzaiuoli" },
+            { period: "2011–2012", name: "Holger Stanislawski" },
+            { period: "2012", name: "Markus Babbel" },
+            { period: "2012", name: "Frank Kramer" },
+            { period: "2013", name: "Marco Kurz" },
+            { period: "2013–2015", name: "Markus Gisdol" },
+            { period: "2015–2016", name: "Huub Stevens" },
+            { period: "2016–2019", name: "Julian Nagelsmann" },
+            { period: "2019–2020", name: "Alfred Schreuder" },
+            { period: "2020", name: "Teamlösung (Kaltenbach, Rechner, Gross, Rapp, Herdling; interim)" },
+            { period: "2020–2022", name: "Sebastian Hoeneß" },
+            { period: "2022–2023", name: "André Breitenreiter" },
+            { period: "2023–2024", name: "Pellegrino Matarazzo" },
+            { period: "seit 2024", name: "Christian Ilzer" }
+        ]
+    },
     164: { history: "1. FSV Mainz 05", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     185: { history: "SC Paderborn 07", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     1660: { history: "SV Elversberg", trophies: [], mostApps: [], mostGoals: [], legends: [] }
