@@ -986,6 +986,43 @@ const teamHistories = {
             { period: "12/2025–", name: "Urs Fischer" }
         ]
     },
-    185: { history: "SC Paderborn 07", trophies: [], mostApps: [], mostGoals: [], legends: [] },
+    185: {
+        history: "Der SC Paderborn (vollständiger Name SC Paderborn 07 e. V., kurz SCP07 oder SCP) ist ein 1907 gegründeter Sportverein aus Paderborn in Ostwestfalen-Lippe. Nach wechselhaften Jahren mit rasanten Aufstiegen und Abstiegen bis in die 3. Liga etablierte sich der Klub dauerhaft in der 2. Bundesliga und feierte am Ende der Saison 2025/26 nach erfolgreicher Relegation gegen den VfL Wolfsburg (0:0 und 2:1 n. V.) den erneuten Aufstieg in die Bundesliga.",
+        trophies: [
+            { comp: "Bundesliga-Aufstiege", count: "3x", seasons: "2014, 2019, 2026" },
+            { comp: "2. Bundesliga-Aufstiege", count: "4x", seasons: "1982 (als TuS Schloß Neuhaus), 2005, 2009, 2018" },
+            { comp: "Westfalenmeister", count: "Mehrfach", seasons: "1981, 1982, 1994, 2001" },
+            { comp: "Westfalenpokalsieger", count: "9x", seasons: "1985, 1994, 1996, 2000, 2001, 2002, 2004, 2017, 2018" }
+        ],
+        mostApps: [
+            { rank: 1, name: "Christian Strohdiek", period: "2007–2021", count: "338 Spiele", active: false },
+            { rank: 2, name: "Jens Wemmer", period: "2006–2014", count: "Langzeitspieler", active: false },
+            { rank: 3, name: "Ron Schallenberg", period: "2018–2023", count: "Prägender Spieler", active: false },
+            { rank: 4, name: "Aktuelle Leistungsträger", period: "Verschiedene", count: "Kader", active: false }
+        ],
+        mostGoals: [
+            { rank: 1, name: "Sven Michel", period: "2016–2022", count: "Top-Torschütze", active: false },
+            { rank: 2, name: "Nick Proschwitz", period: "2011–2012", count: "Prägender Stürmer", active: false },
+            { rank: 3, name: "Dennis Srbeny", period: "Verschiedene", count: "Torgefährlicher Angreifer", active: false },
+            { rank: 4, name: "Florent Muslija", period: "Verschiedene", count: "Offensiver Leistungsträger", active: false }
+        ],
+        legends: [
+            { name: "Steffen Baumgart", period: "2017–2021 (Trainer)", pos: "Cheftrainer", info: "Prägte die erfolgreichste moderne Ära des SCP, führte den Klub von der 3. Liga sensationell in die Bundesliga." },
+            { name: "André Breitenreiter", period: "2013–2015 (Trainer)", pos: "Cheftrainer", info: "Führte den SC Paderborn in der Saison 2013/14 erstmals sensationell in die Bundesliga." },
+            { name: "Christian Strohdiek", period: "2007–2021", pos: "Abwehr", info: "Absolute Vereinsikone mit 338 Pflichtspielen, erlebte alle Höhen und Tiefen von der 3. Liga bis in die Bundesliga." },
+            { name: "Stefan Effenberg", period: "2015–2016 (Trainer)", pos: "Cheftrainer", info: "Prominenter Cheftrainer in der schwierigen Zweitligasaison 2015/16." }
+        ],
+        trainers: [
+            { period: "2013–2015", name: "André Breitenreiter" },
+            { period: "2015", name: "Markus Gellhaus" },
+            { period: "2015–2016", name: "Stefan Effenberg" },
+            { period: "2016", name: "René Müller" },
+            { period: "2016", name: "Florian Fulland (interim)" },
+            { period: "2016–2017", name: "Stefan Emmerling" },
+            { period: "2017–2021", name: "Steffen Baumgart" },
+            { period: "2021–2022", name: "Lukas Kwasniok" },
+            { period: "2022–", name: "Aktueller Trainerstab" }
+        ]
+    },
     1660: { history: "SV Elversberg", trophies: [], mostApps: [], mostGoals: [], legends: [] }
 };
