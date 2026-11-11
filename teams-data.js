@@ -487,7 +487,47 @@ const teamHistories = {
             { name: "Dieter Burdenski", period: "1972–1988", pos: "Tor", info: "Rekordspieler des SV Werder Bremen mit 444 Bundesligaeinsätzen." }
         ]
     },
-    173: { history: "RB Leipzig", trophies: [], mostApps: [], mostGoals: [], legends: [] },
+    173: {
+        history: "Gegründet im Mai 2009. Der RasenBallsport Leipzig e. V., kurz RB Leipzig, spielt seit 2016 in der Bundesliga und trägt seine Heimspiele in der Red Bull Arena aus. Zu den größten sportlichen Erfolgen des Vereins gehören die DFB-Pokalsiege 2022 und 2023 sowie die Vizemeisterschaften 2017 und 2021.",
+        trophies: [
+            { comp: "DFB-Pokalsieger", count: "2 Mal", seasons: "2022, 2023" },
+            { comp: "DFL-Supercupsieger", count: "1 Mal", seasons: "2023" },
+            { comp: "Deutscher Vizemeister", count: "2 Mal", seasons: "2017, 2021" },
+            { comp: "DFB-Pokal-Finalist", count: "2 Mal", seasons: "2019, 2021" }
+        ],
+        mostApps: [
+            { rank: 1, name: "Yussuf Poulsen", period: "2013–2025", count: "425", active: false },
+            { rank: 2, name: "Willi Orbán", period: "2015–heute", count: "385", active: true },
+            { rank: 3, name: "Péter Gulácsi", period: "2015–2026", count: "362", active: false },
+            { rank: 4, name: "Lukas Klostermann", period: "2014–heute", count: "333", active: true },
+            { rank: 5, name: "Emil Forsberg", period: "2015–2023", count: "325", active: false },
+            { rank: 6, name: "Kevin Kampl", period: "2017–2026", count: "283", active: false },
+            { rank: 7, name: "Marcel Halstenberg", period: "2015–2023", count: "240", active: false },
+            { rank: 8, name: "Marcel Sabitzer", period: "2015–2021", count: "229", active: false },
+            { rank: 9, name: "Amadou Haidara", period: "2018–2026", count: "222", active: false },
+            { rank: 10, name: "Timo Werner", period: "2016–2026", count: "216", active: false }
+        ],
+        mostGoals: [
+            { rank: 1, name: "Timo Werner", period: "2016–2026", count: "113", active: false },
+            { rank: 2, name: "Yussuf Poulsen", period: "2013–2025", count: "95", active: false },
+            { rank: 3, name: "Daniel Frahn", period: "2010–2015", count: "88", active: false },
+            { rank: 4, name: "Emil Forsberg", period: "2015–2023", count: "71", active: false },
+            { rank: 5, name: "Christopher Nkunku", period: "2019–2023", count: "70", active: false },
+            { rank: 6, name: "Marcel Sabitzer", period: "2015–2021", count: "52", active: false },
+            { rank: 7, name: "Loïs Openda", period: "2023–2025", count: "41", active: false },
+            { rank: 8, name: "Benjamin Šeško", period: "2023–2025", count: "39", active: false },
+            { rank: 9, name: "Willi Orbán", period: "2015–heute", count: "36", active: true },
+            { rank: 10, name: "Dominik Kaiser", period: "2012–2018", count: "34", active: false }
+        ],
+        legends: [
+            { name: "Yussuf Poulsen", period: "2013–2025", pos: "Sturm", info: "Rekordspieler von RB Leipzig mit 425 Einsätzen, begleitete den Weg von der 3. Liga bis in die Champions League." },
+            { name: "Timo Werner", period: "2016–2026", pos: "Sturm", info: "Rekordtorschütze der Vereinsgeschichte mit 113 Treffern." },
+            { name: "Christopher Nkunku", period: "2019–2023", pos: "Mittelfeld / Sturm", info: "Bundesliga-Torschützenkönig 2022/23 und Deutschlands Fußballer des Jahres 2022." },
+            { name: "Willi Orbán", period: "2015–heute", pos: "Abwehr", info: "Langjähriger Abwehrchef, Kapitän und Identifikationsfigur." },
+            { name: "Péter Gulácsi", period: "2015–2026", pos: "Tor", info: "Jahrelanger Rückhalt und Kapitän zwischen den Pfosten." },
+            { name: "Emil Forsberg", period: "2015–2023", pos: "Mittelfeld", info: "Genialer Spielgestalter und Publikumsliebling aus der Aufstiegsära." }
+        ]
+    },
     172: { history: "VfB Stuttgart", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     169: { history: "Eintracht Frankfurt", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     160: { history: "SC Freiburg", trophies: [], mostApps: [], mostGoals: [], legends: [] },
