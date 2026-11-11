@@ -19,6 +19,7 @@
             --border-color: #21262d;
             --success-green: #3fb950;
             --warning-orange: #d29922;
+            --gold-color: #d29922;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); padding: 20px; display: flex; justify-content: center; }
@@ -59,6 +60,11 @@
         .club-select-dropdown { background: #070b12; color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; font-size: 0.95rem; font-weight: bold; cursor: pointer; outline: none; min-width: 320px; transition: border-color 0.2s; }
         .club-select-dropdown:focus { border-color: var(--accent-color); }
 
+        /* Search Filter Input */
+        .search-filter-box { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; background: #070b12; border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 10px; }
+        .search-filter-input { background: transparent; border: none; color: var(--text-main); font-size: 0.92rem; outline: none; width: 100%; }
+        .search-filter-input::placeholder { color: var(--text-muted); }
+
         /* Navigation Tabs */
         .nav-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 25px; flex-wrap: wrap; }
         .tab-btn { background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; font-weight: 600; transition: all 0.2s; }
@@ -98,9 +104,13 @@
         td.right, th.right { text-align: right; }
         tr.highlight-team-row { background: rgba(220, 5, 45, 0.15) !important; font-weight: bold; border-left: 4px solid var(--accent-color); }
 
-        .pos-badge { background: #101828; padding: 3px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); border: 1px solid var(--border-color); display: inline-block; }
+        .pos-badge { background: #101828; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); border: 1px solid var(--border-color); display: inline-block; }
         .player-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); background: #101828; }
         .rating-badge { background: rgba(220, 5, 45, 0.15); color: #DC052D; font-weight: bold; padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(220, 5, 45, 0.3); }
+        
+        /* Gold-Badge für Punkte */
+        .points-gold-badge { background: rgba(210, 153, 34, 0.18); color: var(--gold-color); font-weight: bold; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(210, 153, 34, 0.35); display: inline-block; font-size: 0.8rem; }
+
         .card-yellow { background: #d29922; color: #000; font-weight: bold; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; display: inline-block; }
         .card-red { background: #DC052D; color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; display: inline-block; }
 
@@ -115,14 +125,12 @@
         .modal-team-side img { width: 45px; height: 45px; object-fit: contain; }
         .modal-score-box { background: #101828; border: 1px solid var(--border-color); padding: 8px 20px; border-radius: 10px; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; color: var(--accent-color); }
 
-        /* Aufstellungen Grid */
         .lineup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
         @media (max-width: 750px) { .lineup-grid { grid-template-columns: 1fr; } }
         .lineup-card { background: #070b12; border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; font-size: 0.82rem; }
         .lineup-card h4 { color: var(--accent-color); margin-bottom: 8px; font-size: 0.95rem; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
         .sub-list, .goal-list, .card-list { margin-top: 10px; border-top: 1px dashed var(--border-color); padding-top: 8px; color: var(--text-muted); }
 
-        /* Spieldatistiken Balken */
         .stat-row { margin-bottom: 12px; font-size: 0.85rem; }
         .stat-info { display: flex; justify-content: space-between; margin-bottom: 4px; color: var(--text-muted); font-weight: 500; }
         .stat-bar-container { display: flex; height: 8px; background: #101828; border-radius: 4px; overflow: hidden; gap: 2px; }
@@ -138,7 +146,7 @@
         <!-- Header -->
         <header>
             <div class="main-title">Bundesliga & Team-Statistik <span>Hub</span></div>
-            <div class="subtitle">Zentrales Live-Dashboard mit offiziellen Vereinsfarben & deinen Team-IDs</div>
+            <div class="subtitle">Zentrales Live-Dashboard mit Vereinshistorie & Gegner-Suchfilter</div>
             <div class="author-sub">
                 <img src="https://lhusylpjnujlqomougmg.supabase.co/storage/v1/object/public/Bilder/Juergen%20Schuetzendorf.png" alt="Jürgen Schützendorf" class="author-avatar">
                 <span class="author-text">Webmanagement Jürgen Schützendorf</span>
@@ -150,7 +158,7 @@
             <div class="info-content">
                 <h2>ℹ️ Über diese App</h2>
                 <p>
-                    Der <b>Bundesliga & Team-Statistik Hub</b> ist deine zentrale Web-Anwendung zur Analyse aller 18 Erstligisten. Wähle deinen Verein aus, um Live-Daten, authentische Vereinsfarben, Vereinshistorie und die aktuelle Tabelle abzurufen.
+                    Wähle deinen Verein aus. Die Vereinshistorie und der gefilterte Gegner-Direktvergleich stehen dir nun direkt oben auf der Hauptseite zur Verfügung.
                 </p>
             </div>
             <div>
@@ -199,7 +207,7 @@
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab('tab-profile')">🏢 Vereins-Info & Historie</button>
+            <button class="tab-btn active" onclick="switchTab('tab-profile')">🏢 Vereinshistorie & Gegner-Matrix</button>
             <button class="tab-btn" onclick="switchTab('tab-stats')">📊 Saison-Statistiken & Minuten</button>
             <button class="tab-btn" onclick="switchTab('tab-squad')">👥 Kader & Spielerstatistik</button>
             <button class="tab-btn" onclick="switchTab('tab-fixtures')">📅 Spielplan & Live</button>
@@ -210,9 +218,9 @@
             <span>Bereit. Bitte wähle einen Verein aus.</span>
         </div>
 
-        <!-- TAB 1: VEREINS-INFO & HISTORIE -->
+        <!-- TAB 1: HAUPTSEITE (Historie oben, danach Stammdaten & gefilterte Gegner-Matrix) -->
         <div id="tab-profile" class="tab-content active">
-            <div id="profileContainer" class="loading-state">Bitte wähle oben einen Verein aus, um die Statistiken zu laden.</div>
+            <div id="profileContainer" class="loading-state">Bitte wähle oben einen Verein aus, um das Dashboard zu laden.</div>
         </div>
 
         <!-- TAB 2: STATISTIKEN & MINUTEN -->
@@ -229,7 +237,6 @@
 
         <!-- TAB 4: SPIELPLAN -->
         <div id="tab-fixtures" class="tab-content">
-            <!-- Eingefügter Hinweis zum Aufrufen der Spieldatistiken -->
             <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 18px; margin-bottom: 15px; font-size: 0.88rem; color: var(--text-muted); display: flex; align-items: center; gap: 10px;">
                 <span>💡</span>
                 <span>Hinweis: Aktuelle Spielstatistiken, Aufstellungen, Torschützen und Karten sind abrufbar, indem man direkt auf das jeweilige Spiel in der Tabelle klickt.</span>
@@ -277,10 +284,12 @@
 
     <script>
         const apiKey = "297322363f3bf16e1304cfb933a0c8d5";
-        const season = "2026";
+        const seasonCurrent = "2026";
+        const seasonLast = "2025";
         const leagueId = 78; // 1. Bundesliga
         
-        let currentTeamId = null; // Standardmäßig kein Verein vorausgewählt
+        let currentTeamId = null;
+        let globalOpponentsCache = []; // Für den Live-Suchfilter
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -295,6 +304,7 @@
 
         function resetToHome() {
             currentTeamId = null;
+            globalOpponentsCache = [];
             document.getElementById("clubSelector").value = "";
             document.documentElement.style.setProperty('--accent-color', '#DC052D');
             
@@ -327,12 +337,12 @@
             
             document.documentElement.style.setProperty('--accent-color', clubColor);
             
-            const loadingMsg = `<div class="loading-state">Lade Vereinsstammdaten & Historie...</div>`;
+            const loadingMsg = `<div class="loading-state">Lade Vereinsstammdaten & Spieldaten...</div>`;
             document.getElementById("profileContainer").innerHTML = loadingMsg;
-            document.getElementById("statsContainer").innerHTML = `<div class="loading-state">Lade Saison-Statistiken...</div>`;
-            document.getElementById("squadContainer").innerHTML = `<div class="loading-state">Lade Spieler-Gesamtstatistik...</div>`;
-            document.getElementById("fixturesContainer").innerHTML = `<div class="loading-state">Lade Spielplan & Begegnungen...</div>`;
-            document.getElementById("standingsContainer").innerHTML = `<div class="loading-state">Lade Ligatabelle...</div>`;
+            document.getElementById("statsContainer").innerHTML = loadingMsg;
+            document.getElementById("squadContainer").innerHTML = loadingMsg;
+            document.getElementById("fixturesContainer").innerHTML = loadingMsg;
+            document.getElementById("standingsContainer").innerHTML = loadingMsg;
 
             initAll();
         }
@@ -340,21 +350,23 @@
         async function initAll() {
             if (!currentTeamId) return;
             const banner = document.getElementById("apiStatusBanner");
-            banner.innerHTML = `<span>Lade Live-Daten für Team-ID ${currentTeamId}...</span>`;
+            banner.innerHTML = `<span>Lade Live-Daten für Team-ID ${currentTeamId} (Saison ${seasonCurrent} & ${seasonLast})...</span>`;
 
             try {
-                const [teamRes, statsRes, playersRes, fixturesRes, standingsRes] = await Promise.all([
+                const [teamRes, fixtures26Res, fixtures25Res, statsRes, playersRes, standingsRes] = await Promise.all([
                     fetch(`https://v3.football.api-sports.io/teams?id=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
-                    fetch(`https://v3.football.api-sports.io/teams/statistics?league=${leagueId}&season=${season}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
-                    fetch(`https://v3.football.api-sports.io/players?league=${leagueId}&season=${season}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
-                    fetch(`https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${season}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
-                    fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=${season}`, { headers: { "x-apisports-key": apiKey } })
+                    fetch(`https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${seasonCurrent}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
+                    fetch(`https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${seasonLast}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
+                    fetch(`https://v3.football.api-sports.io/teams/statistics?league=${leagueId}&season=${seasonCurrent}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
+                    fetch(`https://v3.football.api-sports.io/players?league=${leagueId}&season=${seasonCurrent}&team=${currentTeamId}`, { headers: { "x-apisports-key": apiKey } }),
+                    fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=${seasonCurrent}`, { headers: { "x-apisports-key": apiKey } })
                 ]);
 
                 const teamData = await teamRes.json();
+                const fixtures26Data = await fixtures26Res.json();
+                const fixtures25Data = await fixtures25Res.json();
                 const statsData = await statsRes.json();
                 const playersData = await playersRes.json();
-                const fixturesData = await fixturesRes.json();
                 const standingsData = await standingsRes.json();
 
                 if (teamData.response && teamData.response.length > 0) {
@@ -364,19 +376,134 @@
                     document.getElementById("headerTeamSub").innerText = `1. Bundesliga • Team-ID ${currentTeamId}`;
                 }
 
-                renderProfileAndHistory(teamData);
+                // Gegner aufbereiten & cachen
+                globalOpponentsCache = buildOpponentsArray(fixtures26Data, fixtures25Data);
+
+                renderProfileWithHistoryAndMatrix(teamData);
                 renderStats(statsData);
                 renderPlayerStats(playersData);
-                renderFixtures(fixturesData);
+                renderFixtures(fixtures26Data);
                 renderStandings(standingsData);
 
-                banner.innerHTML = `<span>🟢 Alle Endpunkte erfolgreich geladen</span><span>Saison: <b>${season}</b></span>`;
+                banner.innerHTML = `<span>🟢 Alle Endpunkte erfolgreich geladen</span><span>Saison: <b>${seasonCurrent} & ${seasonLast}</b></span>`;
             } catch (e) {
                 banner.innerHTML = `<span style="color:var(--accent-color);">❌ Fehler beim Abrufen der API-Daten: ${e.message}</span>`;
             }
         }
 
-        function renderProfileAndHistory(teamData) {
+        function formatMatchResultBadge(match, teamId) {
+            if (!match) return '<span class="pos-badge" style="color:var(--text-muted);">-</span>';
+            if (match.goals.home === null || match.goals.away === null) {
+                return '<span class="pos-badge" style="color:var(--text-muted);">Ausstehend</span>';
+            }
+
+            let isHome = match.teams.home.id === teamId;
+            let teamGoals = isHome ? match.goals.home : match.goals.away;
+            let oppGoals = isHome ? match.goals.away : match.goals.home;
+            let scoreStr = `${match.goals.home}:${match.goals.away}`;
+
+            let bg = "rgba(139,148,158,0.15)";
+            let col = "var(--text-muted)";
+
+            if (teamGoals > oppGoals) {
+                bg = "rgba(63,185,80,0.15)";
+                col = "#3fb950";
+                scoreStr += " (S)";
+            } else if (teamGoals < oppGoals) {
+                bg = "rgba(220,5,45,0.15)";
+                col = "#DC052D";
+                scoreStr += " (N)";
+            } else {
+                bg = "rgba(210,153,34,0.15)";
+                col = "#d29922";
+                scoreStr += " (U)";
+            }
+
+            scoreStr += isHome ? " (H)" : " (A)";
+            return `<span class="pos-badge" style="background:${bg}; color:${col}; font-weight:bold;">${scoreStr}</span>`;
+        }
+
+        function calculatePoints(match1, match2, teamId) {
+            let pts = 0;
+            [match1, match2].forEach(m => {
+                if (m && m.goals.home !== null && m.goals.away !== null) {
+                    let isHome = m.teams.home.id === teamId;
+                    let tG = isHome ? m.goals.home : m.goals.away;
+                    let oG = isHome ? m.goals.away : m.goals.home;
+                    if (tG > oG) pts += 3;
+                    else if (tG === oG) pts += 1;
+                }
+            });
+            return pts;
+        }
+
+        function buildOpponentsArray(fix26Data, fix25Data) {
+            let opponentsMap = {};
+            if (fix26Data.response) {
+                fix26Data.response.forEach(m => {
+                    let isHome = m.teams.home.id === currentTeamId;
+                    let opp = isHome ? m.teams.away : m.teams.home;
+                    if (!oppopersMapInit(opponentsMap, opp)) return;
+                    if (!opponentsMap[opp.id].s26_1) opponentsMap[opp.id].s26_1 = m;
+                    else opponentsMap[opp.id].s26_2 = m;
+                });
+            }
+            if (fix25Data.response) {
+                fix25Data.response.forEach(m => {
+                    let isHome = m.teams.home.id === currentTeamId;
+                    let opp = isHome ? m.teams.away : m.teams.home;
+                    if (!oppopersMapInit(opponentsMap, opp)) return;
+                    if (!opponentsMap[opp.id].s25_1) opponentsMap[opp.id].s25_1 = m;
+                    else opponentsMap[opp.id].s25_2 = m;
+                });
+            }
+            function oppopersMapInit(map, opp) {
+                if (!opp || opp.id === currentTeamId) return false;
+                if (!map[opp.id]) {
+                    map[opp.id] = { name: opp.name, logo: opp.logo, s26_1: null, s26_2: null, s25_1: null, s25_2: null };
+                }
+                return true;
+            }
+            return Object.values(opponentsMap).sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        function filterOpponentsTable() {
+            const query = document.getElementById("opponentSearchInput").value.toLowerCase();
+            const tbody = document.getElementById("opponentTableBody");
+            
+            let filtered = globalOpponentsCache.filter(item => item.name.toLowerCase().includes(query));
+            
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);">Kein Gegner gefunden.</td></tr>`;
+                return;
+            }
+
+            let html = "";
+            filtered.forEach(item => {
+                let pts26 = calculatePoints(item.s26_1, item.s26_2, currentTeamId);
+                let pts25 = calculatePoints(item.s25_1, item.s25_2, currentTeamId);
+
+                html += `
+                    <tr class="table-row">
+                        <td>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <img src="${item.logo}" style="width:22px; height:22px; object-fit:contain;" alt="">
+                                <span><b>${item.name}</b></span>
+                            </div>
+                        </td>
+                        <td class="center">${formatMatchResultBadge(item.s26_1, currentTeamId)}</td>
+                        <td class="center">${formatMatchResultBadge(item.s26_2, currentTeamId)}</td>
+                        <td class="center"><span class="points-gold-badge">${pts26} Pkt.</span></td>
+                        <td class="center">${formatMatchResultBadge(item.s25_1, currentTeamId)}</td>
+                        <td class="center">${formatMatchResultBadge(item.s25_2, currentTeamId)}</td>
+                        <td class="center"><span class="points-gold-badge">${pts25} Pkt.</span></td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function renderProfileWithHistoryAndMatrix(teamData) {
             if (!teamData.response || teamData.response.length === 0) return;
             const item = teamData.response[0];
             const t = item.team;
@@ -387,7 +514,18 @@
             
             const histData = (typeof teamHistories !== 'undefined' && teamHistories[currentTeamId]) ? teamHistories[currentTeamId] : { history: "Traditionsreicher deutscher Fußballverein.", trophies: [], mostApps: [], mostGoals: [], legends: [] };
 
-            let profileHtml = `
+            let profileHtml = "";
+
+            // 1. VEREINSHISTORIE GANZ OBEN
+            profileHtml += `
+                <div class="card" style="margin-bottom: 25px;">
+                    <h2>📜 Vereinshistorie</h2>
+                    <p class="history-text">${histData.history}</p>
+                </div>
+            `;
+
+            // 2. STAMMDATEN & STADION
+            profileHtml += `
                 <div class="stats-grid">
                     <div class="card">
                         <h2>🏢 Vereins-Stammdaten</h2>
@@ -406,13 +544,65 @@
                         <div class="metric-row"><span class="metric-label">Rasen</span><span class="metric-value">${v.surface || '-'}</span></div>
                     </div>
                 </div>
-
-                <div class="card" style="margin-top: 25px;">
-                    <h2>📜 Vereinshistorie</h2>
-                    <p class="history-text">${histData.history}</p>
-                </div>
             `;
 
+            // 3. GEGNER-DIREKTVERGLEICH MIT SUCHFILTER
+            profileHtml += `
+                <div class="card" style="margin-top: 25px;">
+                    <h2>⚔️ Gegner-Direktvergleich & Punkte: Saison 2026 vs. Saison 2025</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">
+                        Direkte Ergebnisse und geholte Punkte gegen alle Ligagegner im Jahresvergleich ((H) = Heim, (A) = Auswärts).
+                    </p>
+                    
+                    <div class="search-filter-box">
+                        <span>🔍</span>
+                        <input type="text" id="opponentSearchInput" class="search-filter-input" placeholder="Gegner durchsuchen (z.B. Bayern, Dortmund)..." onkeyup="filterOpponentsTable()">
+                    </div>
+
+                    <div class="table-card">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Gegner / Verein</th>
+                                    <th class="center">Saison 2026 (1. Spiel)</th>
+                                    <th class="center">Saison 2026 (2. Spiel)</th>
+                                    <th class="center" style="color:var(--gold-color);">Punkte 2026</th>
+                                    <th class="center">Saison 2025 (1. Spiel)</th>
+                                    <th class="center">Saison 2025 (2. Spiel)</th>
+                                    <th class="center" style="color:var(--gold-color);">Punkte 2025</th>
+                                </tr>
+                            </thead>
+                            <tbody id="opponentTableBody">
+            `;
+
+            if (globalOpponentsCache.length === 0) {
+                profileHtml += `<tr><td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);">Keine Gegner-Daten verfügbar.</td></tr>`;
+            } else {
+                globalOpponentsCache.forEach(item => {
+                    let pts26 = calculatePoints(item.s26_1, item.s26_2, currentTeamId);
+                    let pts25 = calculatePoints(item.s25_1, item.s25_2, currentTeamId);
+
+                    profileHtml += `
+                        <tr class="table-row">
+                            <td>
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <img src="${item.logo}" style="width:22px; height:22px; object-fit:contain;" alt="">
+                                    <span><b>${item.name}</b></span>
+                                </div>
+                            </td>
+                            <td class="center">${formatMatchResultBadge(item.s26_1, currentTeamId)}</td>
+                            <td class="center">${formatMatchResultBadge(item.s26_2, currentTeamId)}</td>
+                            <td class="center"><span class="points-gold-badge">${pts26} Pkt.</span></td>
+                            <td class="center">${formatMatchResultBadge(item.s25_1, currentTeamId)}</td>
+                            <td class="center">${formatMatchResultBadge(item.s25_2, currentTeamId)}</td>
+                            <td class="center"><span class="points-gold-badge">${pts25} Pkt.</span></td>
+                        </tr>
+                    `;
+                });
+            }
+            profileHtml += `</tbody></table></div></div>`;
+
+            // 4. TROPHÄEN & ERFOLGE
             profileHtml += `
                 <div class="table-card" style="margin-top: 25px;">
                     <div style="padding: 18px 20px; border-bottom: 1px solid var(--border-color); background: #101828;">
@@ -435,6 +625,7 @@
             }
             profileHtml += `</div>`;
 
+            // 5. SPIELER-REKORDE & LEGENDEN
             if (histData.mostApps && histData.mostApps.length > 0) {
                 profileHtml += `
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 25px; margin-top: 25px;">
