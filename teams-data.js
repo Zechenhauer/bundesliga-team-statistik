@@ -724,9 +724,57 @@ const teamHistories = {
             { name: "Timo Wenzel", period: "2006–2008", pos: "Abwehr", info: "Zyprischer Meister 2010, Pokalsieger 2011, Deutscher Vizemeister 2003." }
         ]
     },
+    182: {
+        history: "Der 1. FC Union Berlin (offiziell 1. Fußballclub Union Berlin e. V.), kurz Union Berlin, ist ein Fußballverein aus Berlin-Köpenick. Er wurde 1966 gegründet und geht zurück auf den SC Union Oberschöneweide (gegründet 1906), der 1923 die Deutsche Vizemeisterschaft erreichte. Seit 1920 spielen die Eisernen im legendären Stadion An der Alten Försterei. Zu den größten modernen Meilensteinen zählen der Einzug ins DFB-Pokalfinale 2001, der historische Bundesliga-Aufstieg 2019 sowie der sensationelle Einzug in die UEFA Champions League 2023.",
+        trophies: [
+            { comp: "Deutscher Vizemeister (als Oberschöneweide)", count: "1x", seasons: "1923" },
+            { comp: "FDGB-Pokalsieger (DDR)", count: "1x", seasons: "1968 (Finale 1986)" },
+            { comp: "DFB-Pokalfinalist", count: "1x", seasons: "2001" },
+            { comp: "Bundesliga-Qualifikation Champions League", count: "4. Platz", seasons: "2022/23" },
+            { comp: "Drittliga-Meister", count: "1x", seasons: "2009" },
+            { comp: "Intertoto-Cup-Sieger", count: "1x", seasons: "1986" },
+            { comp: "Berliner Pokalsieger", count: "3x", seasons: "1994, 2007, 2009" }
+        ],
+        mostApps: [
+            { rank: 1, name: "Lutz Hendel", period: "1968–1993", count: "422 Spiele", active: false },
+            { rank: 2, name: "Torsten Mattuschka", period: "2005–2014", count: "272 Spiele", active: false },
+            { rank: 3, name: "Wolfgang Matthies", period: "1971–1988", count: "253 Spiele", active: false },
+            { rank: 4, name: "Michael Parensen", period: "2009–2020", count: "249 Spiele", active: false }
+        ],
+        mostGoals: [
+            { rank: 1, name: "Sergej Barbarez", period: "1993–1996", count: "59 Tore", active: false },
+            { rank: 2, name: "Uwe Borchardt", period: "1975–1987", count: "69 Tore", active: false },
+            { rank: 3, name: "Daniel Teixeira", period: "2001–2007", count: "67 Tore", active: false },
+            { rank: 4, name: "Joachim Sigusch", period: "1969–1981", count: "63 Tore", active: false }
+        ],
+        legends: [
+            { name: "Sergej Barbarez", period: "1993–1996", pos: "Mittelfeld", info: "103 Spiele (59 Tore). Der Bosnier startete in Berlin seine große sportliche Karriere und war ein torgefährlicher Mittelfeldspieler. Er wurde 1996 zum „Unioner des Jahres“ gewählt." },
+            { name: "Christian Beeck", period: "1987–1995", pos: "Mittelfeld / Abwehr", info: "251 Spiele (7 Tore). Der Rathenower begann mit acht Jahren seine Fußballlaufbahn und schaffte 1995 den Sprung in den Profifußball. Er kehrte 2005 als Teammanager und später Sportdirektor zurück." },
+            { name: "Sebastian Bönig", period: "2005–2009", pos: "Mittelfeld", info: "134 Spiele (9 Tore). Kam 2005 zu Union und hielt dem Verein trotz des Abstiegs in die Oberliga die Treue. Stieg als Kapitän und Publikumsliebling bis in die 2. Bundesliga auf." },
+            { name: "Uwe Borchardt", period: "1975–1987", pos: "Stürmer", info: "199 Spiele (69 Tore). Wurde in seiner Debütsaison Torschützenkönig in der DDR-Liga und „Unioner des Jahres“, erreichte das FDGB-Pokalfinale 1986." },
+            { name: "Jan Glinker", period: "2001–2014", pos: "Torwart", info: "243 Spiele (0 Tore). Einer der prägendsten Torhüter des Vereins, stand 13 Jahre lang im Dienste des Klubs und wurde viermal zum „Unioner des Jahres“ gewählt." },
+            { name: "Jens Härtel", period: "1993–2000", pos: "Abwehr", info: "180 Spiele (28 Tore). Langjähriger Mannschaftskapitän und Stammspieler in der Abwehr des 1. FC Union sowie 1999 „Unioner des Jahres“." },
+            { name: "Karsten Heine", period: "1969–1986", pos: "Offensive", info: "213 Spiele (21 Tore). „Kuller“ Heine war lange Jahre erfolgreich als Offensivspieler bei den Eisernen aktiv und fester Bestandteil der Oberliga-Mannschaft." },
+            { name: "Lutz Hendel", period: "1968–1993", pos: "Mittelfeld", info: "422 Spiele (27 Tore). Begann mit zehn Jahren in der Jugend des FCU und verließ den Verein erst 25 Jahre später als Rekordspieler und zweifacher „Unioner des Jahres“ (1990 und 1992)." },
+            { name: "Günter Hoge", period: "1964–1970", pos: "Stürmer", info: "89 Spiele (5 Tore). Der von den Fans „Jimmy“ genannte Hoge wurde Unions erster DDR-Nationalspieler und Pokalheld von 1968; heute Ehrenmitglied." },
+            { name: "Oskar Kosche", period: "1974–1999", pos: "Torwart", info: "204 Spiele (1 Tor). Erster Torhüter Unions, welcher ein Pflichtspieltor erzielte. 1997 und 1998 „Unioner des Jahres“, später Geschäftsführer und Präsidiumsmitglied." },
+            { name: "Reinhard Lauck", period: "1968–1973", pos: "Mittelfeld", info: "145 Spiele (23 Tore). „Mäcki“ bestritt im Pokalfinale 1968 sein Debüt für Union und gewann auf Anhieb den Titel." },
+            { name: "Wolfgang Matthies", period: "1971–1988", pos: "Torwart", info: "253 Spiele (0 Tore). Der Torhüter war wohl das größte Union-Idol seiner Zeit. Viermal „Unioner des Jahres“ und 2006 zum „Wertvollsten Unioner aller Zeiten“ gewählt." },
+            { name: "Torsten Mattuschka", period: "2005–2014", pos: "Mittelfeld", info: "272 Spiele (60 Tore). „Tusche“ war Kapitän, Leistungsträger, Identifikationsfigur und maßgeblich am Aufstieg beteiligt; Erfinder des „Torsten-Mattuschka-Lieds“." },
+            { name: "Steffen Menze", period: "1998–2003", pos: "Abwehr", info: "166 Spiele (40 Tore). Kapitän des Teams, führte es 2001 in das DFB-Pokalfinale sowie in die 2. Bundesliga. 2002 zum „Unioner des Jahres“ gewählt." },
+            { name: "Michael Parensen", period: "2009–2020", pos: "Abwehr", info: "249 Spiele (8 Tore). Der Verteidiger ist der Spieler mit den meisten Einsätzen in der 2. Bundesliga für den Verein." },
+            { name: "Tom Persich", period: "1994–2006", pos: "Abwehr", info: "321 Spiele (16 Tore). Der „Keiler“ war über ein Jahrzehnt ein großer Rückhalt und blieb dem Verein auch nach zwei Abstiegen in die Oberliga treu." },
+            { name: "Herbert Raddatz", period: "1933–1948", pos: "Stürmer", info: "Ca. 1.600 Spiele. Einer von Union Oberschöneweides herausragendsten Spielern in den 30ern und 40ern, von Fans als „König der Wuhlheide“ bezeichnet." },
+            { name: "Marko Rehmer", period: "1981–1996", pos: "Abwehr", info: "106 Spiele (19. Tore). Ging aus der Jugendabteilung hervor und debütierte bereits als 18-Jähriger in der ersten Mannschaft, später deutscher Nationalspieler." },
+            { name: "Olaf Seier", period: "1983–1991", pos: "Mittelfeld", info: "226 Spiele (49 Tore). Publikumsliebling („Leo“), kam vom Rivalen BFC Dynamo, prägte das Mittelfeld in den 80ern und war 1984 & 1988 „Unioner des Jahres“." },
+            { name: "Joachim Sigusch", period: "1969–1981", pos: "Offensive", info: "300 Spiele (63 Tore). Kapitän, populärer Spieler und 1980 erster von den Fans gewählter „Unioner des Jahres“. Wegen seiner Schussstärke auch „Bulle“ genannt." },
+            { name: "Ralf Sträßer", period: "1984–1987", pos: "Stürmer", info: "97 Spiele (49 Tore). Sträßer war der einzige Unioner der Vereinsgeschichte, der jemals Torschützenkönig in der DDR-Oberliga wurde." },
+            { name: "Daniel Teixeira", period: "2001–2007", pos: "Stürmer", info: "278 Spiele (67 Tore). „Texas“ wurde zum großen Idol, schoss Union zu zwei Aufstiegen und ins DFB-Pokalfinale und erhielt das erste organisierte Abschiedsspiel." },
+            { name: "Wolfgang Wruck", period: "1959–1974", pos: "Abwehr", info: "209 Spiele (12 Tore). „Ate“ Wruck schoss 1966 das erste Tor in der DDR-Oberliga für den Verein und wurde DDR-Nationalspieler, FDGB-Pokalsieger sowie Kapitän." }
+        ]
+    },
     160: { history: "SC Freiburg", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     167: { history: "TSG 1899 Hoffenheim", trophies: [], mostApps: [], mostGoals: [], legends: [] },
-    182: { history: "1. FC Union Berlin", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     164: { history: "1. FSV Mainz 05", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     185: { history: "SC Paderborn 07", trophies: [], mostApps: [], mostGoals: [], legends: [] },
     1660: { history: "SV Elversberg", trophies: [], mostApps: [], mostGoals: [], legends: [] }
